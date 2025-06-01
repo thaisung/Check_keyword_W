@@ -155,7 +155,7 @@ sudo -u postgres psql|||
 
 Tạo cơ sở dữ liệu cho dự án của chúng tôi
 
-CREATE DATABASE sliver;|||
+CREATE DATABASE transang;|||
 
 Lưu ý:  Mọi câu lệnh Postgres PHẢI kết thúc bằng dấu chấm phẩy
 
@@ -180,7 +180,7 @@ ALTER ROLE postgres SET timezone TO 'UTC';|||
 
 Bây giờ, hãy cung cấp cho người dùng cơ sở dữ liệu của chúng tôi 'sleekuser' để có tất cả các đặc quyền trong cơ sở dữ liệu 'sleeksoft' .
 
-GRANT ALL PRIVILEGES ON DATABASE sliver TO postgres;|||
+GRANT ALL PRIVILEGES ON DATABASE transang TO postgres;|||
 
 Bây giờ chúng tôi đã tạo thành công cơ sở dữ liệu và người dùng cơ sở dữ liệu có tất cả các đặc quyền đối với cơ sở dữ liệu mà chúng tôi đã tạo trong PostgreSQL. Thoát khỏi môi trường Postgres.
 
@@ -250,6 +250,12 @@ Hãy thực hiện quá trình di chuyển ban đầu, thao tác này sẽ thi�
 
 cd sleeksoft/|||
 python3 manage.py makemigrations||
+
+pip install django-environ
+pip install django-tailwind
+pip install requests
+
+
 python3 manage.py migrate|||
 Bây giờ, hãy tạo một siêu người dùng cho trang web của chúng tôi.
 
