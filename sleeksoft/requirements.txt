@@ -1,0 +1,7 @@
+django
+gunicorn
+psycopg2-binary
+pillow
+django-tailwind
+requests
+django-environ

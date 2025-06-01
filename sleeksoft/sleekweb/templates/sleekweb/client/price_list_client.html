@@ -1,0 +1,217 @@
+{% extends './base.html' %}
+{% block title %}Bảng giá{% endblock %}
+{% block seo_tag %}
+    <meta name="description" content="Bảng giá">
+    <meta name="keywords" content="Bảng giá" />
+{% endblock %}
+{% block meta_tag %}
+    <meta property="og:title" content="Bảng giá">
+    <meta property="og:description" content="Bảng giá">
+{% endblock %}
+{% block content %}
+<main class=" flex flex-col justify-center items-center  grow py-[15px] text-sky-500">
+    <div class="w-full lg:w-[1200px] flex flex-col justify-center items-center grow gap-3 bg-stone-50 border-[1px] border-stone-200 rounded-lg p-[20px]">
+        <h1 class="font-bold text-[20px] lg:text-[23px]">Bảng giá</h1>
+        <div class="flex flex-col items-center justify-center w-full gap-3">
+            <div class="flex flex-col w-full border-[1px] border-sky-500 divide-y-[1px] divide-sky-500">
+                <div class="flex w-full divide-x-[1px] divide-sky-500">
+                    <span class="text-center w-[50%] py-2 overflow-hidden font-bold">Nội dung</span>
+                    <span class="text-center w-[50%] py-2 overflow-hidden font-bold">Giá</span>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-sky-500">
+                    <span class="text-center w-[50%] py-2 overflow-hidden">Thanh toán theo lần</span>
+                    <span class="text-center w-[50%] py-2 overflow-hidden">100đ / 1 lần</span>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-sky-500">
+                    <span class="text-center w-[50%] py-2 overflow-hidden">Đăng ký theo ngày</span>
+                    <span class="text-center w-[50%] py-2 overflow-hidden"> 50.000đ / 30 ngày</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<style>
+    .pagination ul {
+      width: auto;
+      display: flex;
+      flex-wrap: wrap;
+      overflow: hidden;
+      /* height: 35px; */
+      /* border-style: solid; */
+      /* border-color: #e5e7eb; */
+      /* border-width: 1px; */
+      border-radius: 0.375rem;
+    }
+
+    .pagination ul a {
+      color: white;
+      list-style: none;
+      line-height: 45px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.3s ease;
+      --tw-bg-opacity: 1;
+      background-color: rgb(41 37 36 / var(--tw-bg-opacity, 1));
+    }
+
+    .pagination ul a.numb {
+      list-style: none;
+      height: 35px;
+      width: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* margin: 0 3px; */
+      line-height: 35px;
+      /* padding-bottom: 3px; */
+    }
+
+    .pagination ul a.numb.first {
+      margin: 0px 3px 0 -5px;
+    }
+
+    .pagination ul a.numb.last {
+      margin: 0px -5px 0 3px;
+    }
+
+    .pagination ul a.dots {
+      font-size: 22px;
+      cursor: default;
+    }
+
+    .pagination ul a.btn {
+      /* border-radius: 50px; */
+      height: 35px;
+      width: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      --tw-bg-opacity: 1;
+      background-color: rgb(41 37 36 / var(--tw-bg-opacity, 1));
+    }
+
+    .pagination a.active,
+    .pagination ul a.numb:hover,
+    .pagination ul a:first-child:hover,
+    .pagination ul a:last-child:hover {
+      color: white;
+      /* background: #22c55e; */
+      --tw-bg-opacity: 1;
+      background-color: rgb(12 10 9 / var(--tw-bg-opacity, 1));
+      font-weight: 600;
+    }
+</style>
+<script>
+    const swipers = {}; // chứa tất cả swiper
+  
+    document.addEventListener("DOMContentLoaded", function () {
+      const total = {{ list_Product|length }};
+      for (let i = 1; i <= total; i++) {
+        swipers[i] = new Swiper(".mySwiper-" + i, {
+          loop: true,
+          autoplay: {
+            delay: 1000,
+            disableOnInteraction: false,
+          },
+          speed: 600,
+          effect: "fade",
+          fadeEffect: { crossFade: true },
+        });
+  
+        swipers[i].autoplay.stop(); // ban đầu dừng
+      }
+    });
+  
+    function startSwiper(id) {
+      if (swipers[id]) {
+        swipers[id].autoplay.start();
+      }
+    }
+  
+    function stopSwiper(id) {
+      if (swipers[id]) {
+        swipers[id].autoplay.stop();
+        swipers[id].slideToLoop(0); // về ảnh đầu tiên
+      }
+    }
+  </script>
+  
+<script>
+    // selecting required element
+    const element = document.querySelector(".pagination ul");
+    let totalPages = {{list_Product.paginator.num_pages}};
+    let page = {{list_Product.number}};
+    let s = "{{ s|default:'' }}";  // Nếu s không có giá trị, dùng giá trị mặc định là ''
+    let f1 = "{{ f1|default:'' }}";  // Nếu f không có giá trị, dùng giá trị mặc định là ''
+    let f2 = "{{ f2|default:'' }}";  // Nếu st không có giá trị, dùng giá trị mặc định là ''
+
+    //calling function with passing parameters and adding inside element which is ul tag
+    element.innerHTML = createPagination(totalPages, page);
+    function createPagination(totalPages, page) {
+        let liTag = '';
+        let active;
+        let beforePage = page - 1;
+        let afterPage = page + 1;
+
+        // Hiển thị nút "Trang trước" nếu không phải là trang đầu tiên
+        if (page > 1) {
+            liTag += `<a href="?p=${page - 1}&s=${s}&f1=${f1}&f2=${f2}" class="btn prev"><svg class="w-[30px] fill-white" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 "></polygon></svg></a>`;
+        }
+
+        // Nếu tổng số trang nhỏ hơn 8, hiển thị tất cả các trang mà không cần dấu ba chấm
+        if (totalPages < 8) {
+            for (let i = 1; i <= totalPages; i++) {
+                active = (page == i) ? "active" : "";
+                liTag += `<a href="?p=${i}&s=${s}&f1=${f1}&f2=${f2}" class="numb ${active}"><span>${i}</span></a>`;
+            }
+        } else {
+            // Nếu tổng số trang >= 8, hiển thị có điều kiện các trang với dấu ba chấm
+            if (page > 2) {
+                liTag += `<a href="?p=1&s=${s}&f1=${f1}&f2=${f2}" class="first numb"><span>1</span></a>`;
+                if (page > 3) {
+                    liTag += `<a class="dots"><span>...</span></a>`;
+                }
+            }
+
+            // Điều chỉnh trước và sau trang hiện tại
+            if (page == totalPages) {
+                beforePage = beforePage - 2;
+            } else if (page == totalPages - 1) {
+                beforePage = beforePage - 1;
+            }
+            if (page == 1) {
+                afterPage = afterPage + 2;
+            } else if (page == 2) {
+                afterPage = afterPage + 1;
+            }
+
+            // Hiển thị các trang trong khoảng trước và sau trang hiện tại
+            for (let plength = beforePage; plength <= afterPage; plength++) {
+                if (plength > totalPages) continue;
+                if (plength == 0) plength = 1;
+                active = (page == plength) ? "active" : "";
+                liTag += `<a href="?p=${plength}&s=${s}&f1=${f1}&f2=${f2}" class="numb ${active}"><span>${plength}</span></a>`;
+            }
+
+            // Hiển thị trang cuối cùng với dấu ba chấm nếu cần
+            if (page < totalPages - 1) {
+                if (page < totalPages - 2) {
+                    liTag += `<a class="dots"><span>...</span></a>`;
+                }
+                liTag += `<a href="?p=${totalPages}&s=${s}&f1=${f1}&f2=${f2}" class="last numb"><span>${totalPages}</span></a>`;
+            }
+        }
+
+        // Hiển thị nút "Trang sau" nếu không phải là trang cuối cùng
+        if (page < totalPages) {
+            liTag += `<a href="?p=${page + 1}&s=${s}&f1=${f1}&f2=${f2}" class="btn next"><svg class="w-[30px] fill-white" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" transform="matrix(-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,0,0)"><polygon points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 "></polygon></svg></a>`;
+        }
+
+        element.innerHTML = liTag;
+        return liTag;
+    }
+</script>
+{% endblock %}

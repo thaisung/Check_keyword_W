@@ -1,0 +1,172 @@
+{% extends './base.html' %}
+{% block title %}Region{% endblock %}
+{% block content %}
+<div class="w-full flex-col ">
+    <div class="flex flex-col lg:flex-row items-center  lg:justify-between border-b-[1px] border-[#0e203c] lg:max-h-[50px] px-3 py-2 font-bold">
+        <span class="uppercase w-full flex justify-center items-center lg:justify-start">
+            Region Page
+        </span>
+        <div class="flex flex-col lg:flex-row items-center gap-3 h-auto lg:max-h-[60px] mt-[10px] lg:mt-[0px]">
+            <form  class=" relative flex items-center justify-center">
+                <input value="{{s}}" name="s" class="font-medium text-sm rounded-full border-[1px] border-[#0e203c] px-4" placeholder="Search"
+                    style="background: transparent;" />
+                <button type="submit" class="absolute right-2">
+                    <svg class="w-[25px]" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">
+                    <g>
+                        <path
+                            d="M51.6,96.7c11,0,21-3.9,28.8-10.5l35,35c0.8,0.8,1.8,1.2,2.9,1.2s2.1-0.4,2.9-1.2c1.6-1.6,1.6-4.2,0-5.8l-35-35   c6.5-7.8,10.5-17.9,10.5-28.8c0-24.9-20.2-45.1-45.1-45.1C26.8,6.5,6.5,26.8,6.5,51.6C6.5,76.5,26.8,96.7,51.6,96.7z M51.6,14.7   c20.4,0,36.9,16.6,36.9,36.9C88.5,72,72,88.5,51.6,88.5c-20.4,0-36.9-16.6-36.9-36.9C14.7,31.3,31.3,14.7,51.6,14.7z">
+                        </path>
+                    </g>
+                </svg>
+                </button>
+            </form>
+            <form action="{% url 'region_admin' %}" method="post"  class="relative flex items-center justify-center ">
+                {% csrf_token %}
+                <input  name="Name" class="font-medium text-sm rounded-full border-[1px] border-[#0e203c] px-4" placeholder="New name Region"
+                    style="background: transparent;" />
+                <button type="submit" class="absolute right-1">
+                    <svg class="w-[30px]" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Right, Next, Arrow</title><path d="M12,0A12,12,0,1,0,24,12,12,12,0,0,0,12,0Zm0,22A10,10,0,1,1,22,12,10,10,0,0,1,12,22Z"></path><polygon points="8.48 7.08 13.4 12 8.48 16.92 9.89 18.33 16.23 12 9.89 5.67 8.48 7.08"></polygon></svg>
+                </button>
+            </form>
+        </div>
+        <style>
+            input:focus {
+                outline: none !important;
+            }
+        </style>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5  gap-4 p-3">
+        {% for i in list_Region %}
+        <div class="w-full p-[20px] flex flex-col  items-center justify-between gap-[10px] border-[3px] rounded-md border-[#0e203c]">
+            <h2 class="region-name font-bold text-[20px]" data-id="{{ i.id }}">{{i.Name}}</h2>
+            <form action="{% url 'region_edit_admin' %}" method="post" class="edit-form hidden" data-id="{{ i.id }}">
+                {% csrf_token %}
+                <input type="hidden" name="pk" value="{{ i.id }}">
+                <input type="text" name="Name" value="{{ i.Name }}" class="edit-input border border-gray-400 px-2 rounded text-sm" />
+            </form>
+            <div class="h-[1px] bg-[#0e203c] w-full"></div>
+            <div class="flex flex-col items-center">
+                {% for j in i.list_nation.all %}
+                <div class="flex gap-2 items-center">
+                    <span>{{j.Name}}</span>
+                    <form action="{% url 'nation_remove_admin' %}" method="post" class="pt-[4px]">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{j.id}}" />
+                        <button type="submit">
+                            <svg class="w-[15px]" enable-background="new 0 0 256 256" id="Layer_1" version="1.1" viewBox="0 0 256 256" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M178.666,134.4H77.331c-3.534,0-6.4-2.866-6.4-6.4s2.866-6.4,6.4-6.4h101.335c3.533,0,6.399,2.866,6.399,6.4  S182.199,134.4,178.666,134.4z M256,128C256,57.42,198.58,0,128,0C57.42,0,0,57.42,0,128c0,70.58,57.42,128,128,128  C198.58,256,256,198.58,256,128z M243.199,128c0,63.521-51.678,115.2-115.199,115.2c-63.522,0-115.2-51.679-115.2-115.2  C12.8,64.478,64.478,12.8,128,12.8C191.521,12.8,243.199,64.478,243.199,128z"></path></svg>
+                        </button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+            <form action="{% url 'nation_add_admin' %}" method="post" class="relative w-full flex items-center justify-center">
+                {% csrf_token %}
+                <input type="hidden" name="pk" value="{{i.id}}" />
+                <input name="Name" class="font-medium text-sm rounded-full border-[1px] border-[#0e203c] px-4 h-[32px] w-full" placeholder="New name Nation"
+                    style="background: transparent;" />
+                <button type="submit" class="absolute right-1">
+                    <svg class="w-[25px]" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Right, Next, Arrow</title><path d="M12,0A12,12,0,1,0,24,12,12,12,0,0,0,12,0Zm0,22A10,10,0,1,1,22,12,10,10,0,0,1,12,22Z"></path><polygon points="8.48 7.08 13.4 12 8.48 16.92 9.89 18.33 16.23 12 9.89 5.67 8.48 7.08"></polygon></svg>
+                </button>
+            </form>
+            <form id="Remove" class="Remove">
+                <input type="hidden" name="pk" value="{{i.id}}" />
+                <input type="hidden" name="name" value="{{i.Name}}" />
+                {% csrf_token %}
+                <button type="submit">
+                    <svg class="w-[30px]" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 72.434 72.437" style="enable-background:new 0 0 72.434 72.437;" xml:space="preserve">
+                        <path style="fill:#231F20;" d="M36.22,0C16.212,0,0,16.215,0,36.223c0,19.999,16.212,36.214,36.22,36.214
+                            s36.214-16.215,36.214-36.214C72.434,16.215,56.228,0,36.22,0z M51.812,48.083l-4.565,4.565l-11.02-11.021L24.86,52.995
+                            l-4.565-4.565l11.367-11.367L20.639,26.04l4.568-4.565l11.02,11.02l11.349-11.343l4.565,4.565L40.792,37.063L51.812,48.083z"></path>
+                        </svg>
+                </button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+    let clickTimeout = null;
+
+    $('.region-name').on('click touchstart', function (e) {
+        const $this = $(this);
+        const id = $this.data('id');
+
+        if ($this.data('clicked')) {
+            // Đã click 1 lần trước đó
+            clearTimeout(clickTimeout);
+            $this.data('clicked', false);
+            $this.hide();
+            $(`form.edit-form[data-id='${id}']`).removeClass('hidden').find('input.edit-input').focus();
+        } else {
+            // Click lần đầu → bắt đầu đếm thời gian
+            $this.data('clicked', true);
+            clickTimeout = setTimeout(() => {
+                $this.data('clicked', false);
+            }, 300); // 300ms là thời gian chờ click thứ 2
+        }
+    });
+
+    // Blur hoặc Enter để submit
+    $('.edit-input').on('blur', function () {
+        const value = $(this).val().trim();
+        const form = $(this).closest('form');
+        const span = $(`.nation-name[data-id='${form.data('id')}']`);
+
+        if (value !== '') {
+            form.submit();
+        } else {
+            form.addClass('hidden');
+            span.show();
+        }
+    });
+
+    $('.edit-input').on('keydown', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            $(this).blur();
+        }
+    });
+});
+</script>
+<script>
+    $(document).ready(function() {
+        $('.Remove').on('submit', function(event) {
+            event.preventDefault();
+        
+            var formData = new FormData(this);  // Tạo FormData từ form hiện tại
+            if (confirm("If you delete "+"'"+formData.get("name")+"'"+", all areas belonging to "+"'"+formData.get("name")+"'"+" will also be deleted. Are you sure you want to delete? ")) {
+                $.ajax({
+                url: '{% url 'region_remove_admin' %}',
+                method: 'POST',
+                processData: false,  // Không xử lý dữ liệu (cần thiết khi sử dụng FormData)
+                contentType: false,  // Không đặt kiểu content (cần thiết khi sử dụng FormData)
+                data: formData,
+                success: function(response) {
+                    if (response.success) {
+                        window.location.href = response.redirect_url;
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(response) {
+                    console.log('Registration failed', response);
+                }
+                });
+            } else {
+                // Huỷ xoá
+                return false;
+            }
+        });
+        
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.open_input_Size').on('click', function() {
+            $('.input_Size').toggle(); // Bật nếu ẩn, ẩn nếu bật
+        });
+    });
+</script>
+{% endblock %}
