@@ -9,41 +9,41 @@
     <meta property="og:description" content="Đăng ký">
 {% endblock %}
 {% block content %}
-<main class=" flex flex-col justify-center items-center  grow py-[15px] text-sky-500">
+<main class=" flex flex-col justify-center items-center  grow p-[15px] text-stone-950">
     <div class="flex flex-col bg-stone-50 w-full lg:w-[500px] p-6 border-[1px] border-stone-200 rounded-lg gap-3">
         <!-- <div class="flex justify-center items-center mb-3">
             <img src="/upload/website/logo.png" />
         </div> -->
-        <div class="uppercase text-center bg-sky-500
+        <div class="uppercase text-center bg-stone-950
  text-white p-3 font-bold rounded-md">
             Đăng ký tài khoản
         </div>
         <form id="Register_Form" action="" class="flex flex-col gap-2">
             {% csrf_token %}
-            <input name="username" placeholder="Email" type="email" class="rounded-md border-[1px] border-sky-500
+            <input name="username" placeholder="Email" type="email" class="rounded-md border-[1px] border-stone-950
 " />
-            <input name="password" type="password" placeholder="Mật khẩu" class="rounded-md border-[1px] border-sky-500
+            <input name="password" type="password" placeholder="Mật khẩu" class="rounded-md border-[1px] border-stone-950
 " />
-            <button type="submit" class=" text-sky-500
- rounded-md py-2 font-bold border-[1px] border-sky-500
+            <button type="submit" class=" text-stone-950
+ rounded-md py-2 font-bold border-[1px] border-stone-950
  ">
                 Đăng ký
             </button>
         </form>
-		<a href="{% url 'login_client' %}" class="flex items-center justify-center text-sky-500
- rounded-md py-2 font-bold border-[1px] border-sky-500
+		<a href="{% url 'login_client' %}" class="flex items-center justify-center text-stone-950
+ rounded-md py-2 font-bold border-[1px] border-stone-950
  ">
-            <span class="fill-sky-500
+            <span class="fill-stone-950
  w-[20px]">
-                <svg enable-background="new 0 0 32 32" id="Слой_1" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" transform="matrix(-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,0,0)"><g id="Double_Chevron_Right"><path d="M23.662,15.286l-6.9-6.999c-0.39-0.394-1.024-0.394-1.414,0c-0.391,0.394-0.391,1.034,0,1.428L21.544,16   l-6.196,6.285c-0.391,0.394-0.391,1.034,0,1.428c0.391,0.394,1.024,0.394,1.414,0l6.899-6.999   C24.038,16.335,24.039,15.666,23.662,15.286z" fill="#0EA5E9
-"></path><path d="M16.662,15.286L9.763,8.287c-0.391-0.394-1.024-0.394-1.414,0c-0.391,0.394-0.391,1.034,0,1.428L14.544,16   l-6.196,6.285c-0.391,0.394-0.391,1.034,0,1.428c0.391,0.394,1.024,0.394,1.414,0l6.899-6.999   C17.038,16.335,17.039,15.666,16.662,15.286z" fill="#0EA5E9
+                <svg enable-background="new 0 0 32 32" id="Слой_1" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" transform="matrix(-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,0,0)"><g id="Double_Chevron_Right"><path d="M23.662,15.286l-6.9-6.999c-0.39-0.394-1.024-0.394-1.414,0c-0.391,0.394-0.391,1.034,0,1.428L21.544,16   l-6.196,6.285c-0.391,0.394-0.391,1.034,0,1.428c0.391,0.394,1.024,0.394,1.414,0l6.899-6.999   C24.038,16.335,24.039,15.666,23.662,15.286z" fill="#0C0A09
+"></path><path d="M16.662,15.286L9.763,8.287c-0.391-0.394-1.024-0.394-1.414,0c-0.391,0.394-0.391,1.034,0,1.428L14.544,16   l-6.196,6.285c-0.391,0.394-0.391,1.034,0,1.428c0.391,0.394,1.024,0.394,1.414,0l6.899-6.999   C17.038,16.335,17.039,15.666,16.662,15.286z" fill="#0C0A09
 "></path></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
             </span>
             Đăng nhập
-            <span class="fill-sky-500
+            <span class="fill-stone-950
  w-[20px]">
-                <svg enable-background="new 0 0 32 32" id="Слой_1" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Double_Chevron_Right"><path d="M23.662,15.286l-6.9-6.999c-0.39-0.394-1.024-0.394-1.414,0c-0.391,0.394-0.391,1.034,0,1.428L21.544,16   l-6.196,6.285c-0.391,0.394-0.391,1.034,0,1.428c0.391,0.394,1.024,0.394,1.414,0l6.899-6.999   C24.038,16.335,24.039,15.666,23.662,15.286z" fill="#0EA5E9
-"></path><path d="M16.662,15.286L9.763,8.287c-0.391-0.394-1.024-0.394-1.414,0c-0.391,0.394-0.391,1.034,0,1.428L14.544,16   l-6.196,6.285c-0.391,0.394-0.391,1.034,0,1.428c0.391,0.394,1.024,0.394,1.414,0l6.899-6.999   C17.038,16.335,17.039,15.666,16.662,15.286z" fill="#0EA5E9
+                <svg enable-background="new 0 0 32 32" id="Слой_1" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Double_Chevron_Right"><path d="M23.662,15.286l-6.9-6.999c-0.39-0.394-1.024-0.394-1.414,0c-0.391,0.394-0.391,1.034,0,1.428L21.544,16   l-6.196,6.285c-0.391,0.394-0.391,1.034,0,1.428c0.391,0.394,1.024,0.394,1.414,0l6.899-6.999   C24.038,16.335,24.039,15.666,23.662,15.286z" fill="#0C0A09
+"></path><path d="M16.662,15.286L9.763,8.287c-0.391-0.394-1.024-0.394-1.414,0c-0.391,0.394-0.391,1.034,0,1.428L14.544,16   l-6.196,6.285c-0.391,0.394-0.391,1.034,0,1.428c0.391,0.394,1.024,0.394,1.414,0l6.899-6.999   C17.038,16.335,17.039,15.666,16.662,15.286z" fill="#0C0A09
 "></path></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
             </span>
         </a>

@@ -9,35 +9,102 @@
     <meta property="og:description" content="Trang chủ">
 {% endblock %}
 {% block content %}
-<main class=" flex flex-col justify-center items-center  grow py-[15px] text-sky-500">
-    <div class="w-full lg:w-[1200px] flex flex-col justify-center items-center grow gap-3 bg-stone-50 border-[1px] border-stone-200 rounded-lg p-[20px]">
+<main class=" flex flex-col justify-center items-center grow text-stone-950">
+    <div class="bg-stone-100 flex w-full">
+      <div class="w-full lg:w-[1200px] flex flex-col justify-center items-center grow gap-3  p-[20px]">
         <h1 class="font-bold text-[20px] lg:text-[23px]">Kiểm tra thứ hạng từ khoá trên google</h1>
-        <div class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3">
-            <input placeholder="Nhập tên miền" class="w-full  rounded-lg bg-sky-300 text-sky-900 border-none shadow-md" />
-            <textarea placeholder="Nhập danh sách từ khoá (Mỗi từ 1 dòng)" class="w-full  rounded-lg bg-sky-300 text-sky-900 border-none shadow-md h-[300px]"></textarea>
-        </div>
-        <div class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3">
-            <span class="font-bold text-[20px] lg:text-[23px]">Danh sách kết quả</span>
-            <div class="flex flex-col w-full border-[1px] border-sky-500 divide-y-[1px] divide-sky-500">
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="text-center w-[50%] py-2 overflow-hidden font-bold">Từ khoá</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden font-bold">Thứ hạng</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thái</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">20</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Con mèo</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">100</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Con heo</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">150</span>
-                </div>
+        <form class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3">
+          <select class="w-full  rounded-lg bg-stone-50 text-stone-950 border-none shadow-md">
+              <option disabled selected>--Thiết bị--</option>
+              <option>Desktop</option>
+              <option>Mobile</option>
+          </select>
+          <input placeholder="Nhập tên miền" class="w-full  rounded-lg bg-stone-50 text-stone-950 border-none shadow-md" />
+          <textarea placeholder="Nhập danh sách từ khoá (Mỗi từ 1 dòng)" class="w-full  rounded-lg bg-stone-50 text-stone-950 border-none shadow-md h-[300px]"></textarea>
+          <button class="bg-stone-950 font-bold px-4 py-2 rounded-full text-stone-50">Kiểm tra</button>
+        </form>
+      </div>
+    </div>
+    <div class="bg-stone-200 flex w-full justify-center px-[20px] lg:px-[0px] py-[20px]">
+      <div class="flex gap-[20px] w-full lg:w-[1200px] bg-stone-50 rounded-md p-[30px]">
+        <div class="w-[50%] flex flex-col gap-2">
+            <div class="flex flex-col lg:flex-row lg:items-center gap-1">
+              <span>Domain: </span>
+              <span class="font-bold">searchgg.com</span>
             </div>
-
+            <div class="flex flex-col lg:flex-row lg:items-center gap-1">
+              <span>Ngôn ngữ: </span>
+              <span class="font-bold">Vietnamese</span>
+            </div>
+            <div class="flex flex-col lg:flex-row lg:items-center gap-1">
+              <span>Search: </span>
+              <span class="font-bold">Google.com.vn</span>
+            </div>
+            <div class="flex flex-col lg:flex-row lg:items-center gap-1">
+              <span>Thiết bị: </span>
+              <span class="font-bold">Desktop</span>
+            </div>
         </div>
+        <div class="h-full w-[2px] bg-stone-300"></div>
+        <div class="w-[50%] flex flex-col gap-2">
+            <div class="flex flex-col lg:flex-row lg:items-center gap-1">
+              <span>Số từ khoá: </span>
+              <span class="font-bold">1</span>
+            </div>
+            <div class="flex flex-col lg:flex-row lg:items-center gap-1">
+              <span>Credit mỗi ngày: </span>
+              <span class="font-bold">100</span>
+            </div>
+            <div class="flex flex-col lg:flex-row lg:items-center gap-1">
+              <span>Credit 30 ngày: </span>
+              <span class="font-bold">3.000</span>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class=" bg-stone-100 flex w-full justify-center px-[20px] lg:px-[0px] py-[20px]">
+      <div class="flex items-center w-full lg:w-[1200px]  flex-col gap-[20px]">
+        <div class="grid grid-cols-2 lg:grid-cols-5 w-full gap-3 ">
+        <div class="flex flex-col rounded-md bg-stone-50 shadow-md overflow-hidden">
+          <span class="bg-stone-900 text-stone-50 uppercase text-center p-[10px] font-bold">Trung bình</span>
+          <span class=" uppercase text-center p-[20px] font-bold text-[30px]">1</span>
+        </div>
+        <div class="flex flex-col rounded-md bg-stone-50 shadow-md overflow-hidden">
+          <span class="bg-stone-900 text-stone-50 uppercase text-center p-[10px] font-bold">Top 3</span>
+          <span class=" uppercase text-center p-[20px] font-bold text-[30px]">0</span>
+        </div>
+        <div class="flex flex-col rounded-md bg-stone-50 shadow-md overflow-hidden">
+          <span class="bg-stone-900 text-stone-50 uppercase text-center p-[10px] font-bold">Top 10</span>
+          <span class=" uppercase text-center p-[20px] font-bold text-[30px]">1</span>
+        </div>
+        <div class="flex flex-col rounded-md bg-stone-50 shadow-md overflow-hidden">
+          <span class="bg-stone-900 text-stone-50 uppercase text-center p-[10px] font-bold">Top 30</span>
+          <span class=" uppercase text-center p-[20px] font-bold text-[30px]">1</span>
+        </div>
+        <div class="flex flex-col rounded-md bg-stone-50 shadow-md overflow-hidden">
+          <span class="bg-stone-900 text-stone-50 uppercase text-center p-[10px] font-bold">Top 100</span>
+          <span class=" uppercase text-center p-[20px] font-bold text-[30px]">1</span>
+        </div>
+      </div>
+      <div class="flex flex-col w-full bg-stone-50 rounded-md divide-y-[1px] divide-stone-500 shadow-md">
+          <div class="flex w-full divide-x-[1px] divide-stone-500 ">
+              <span class="text-center w-[50%] py-2 overflow-hidden font-bold">Từ khoá</span>
+              <span class="text-center w-[50%] py-2 overflow-hidden font-bold">Thứ hạng</span>
+          </div>
+          <div class="flex w-full divide-x-[1px] divide-stone-500 ">
+              <span class="text-center w-[50%] py-2 overflow-hidden">Thái</span>
+              <span class="text-center w-[50%] py-2 overflow-hidden">20</span>
+          </div>
+          <div class="flex w-full divide-x-[1px] divide-stone-500 ">
+              <span class="text-center w-[50%] py-2 overflow-hidden">Con mèo</span>
+              <span class="text-center w-[50%] py-2 overflow-hidden">100</span>
+          </div>
+          <div class="flex w-full divide-x-[1px] divide-stone-500 ">
+              <span class="text-center w-[50%] py-2 overflow-hidden">Con heo</span>
+              <span class="text-center w-[50%] py-2 overflow-hidden">150</span>
+          </div>
+      </div>
+      </div>
     </div>
 </main>
 <style>

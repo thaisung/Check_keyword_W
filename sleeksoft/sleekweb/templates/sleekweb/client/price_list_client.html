@@ -9,22 +9,25 @@
     <meta property="og:description" content="Bảng giá">
 {% endblock %}
 {% block content %}
-<main class=" flex flex-col justify-center items-center  grow py-[15px] text-sky-500">
-    <div class="w-full lg:w-[1200px] flex flex-col justify-center items-center grow gap-3 bg-stone-50 border-[1px] border-stone-200 rounded-lg p-[20px]">
+<main class=" flex flex-col justify-center items-center  grow lg:py-[15px] text-stone-950">
+    <div class="w-full lg:w-[1200px] flex flex-col justify-center items-center grow gap-3 bg-stone-50 lg:border-[1px] border-stone-200  p-[20px]">
         <h1 class="font-bold text-[20px] lg:text-[23px]">Bảng giá</h1>
         <div class="flex flex-col items-center justify-center w-full gap-3">
-            <div class="flex flex-col w-full border-[1px] border-sky-500 divide-y-[1px] divide-sky-500">
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
+            <div class="flex flex-col w-full border-[1px] border-stone-950 divide-y-[1px] divide-stone-950">
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
                     <span class="text-center w-[50%] py-2 overflow-hidden font-bold">Nội dung</span>
                     <span class="text-center w-[50%] py-2 overflow-hidden font-bold">Giá</span>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
                     <span class="text-center w-[50%] py-2 overflow-hidden">Thanh toán theo lần</span>
                     <span class="text-center w-[50%] py-2 overflow-hidden">100đ / 1 lần</span>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Đăng ký theo ngày</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden"> 50.000đ / 30 ngày</span>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex justify-center items-center w-[50%] py-2 overflow-hidden">Đăng ký theo ngày</span>
+                    <div class="flex items-center w-[50%] gap-2 justify-center p-3">
+                      <span class="text-center  py-2 overflow-hidden"> 50.000đ / 30 ngày</span>
+                      <button class="px-3 py-2 rounded-full bg-stone-900 text-stone-50 font-bold text-[15px]">Đăng ký</button>
+                    </div>
                 </div>
             </div>
         </div>

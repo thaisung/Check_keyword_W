@@ -9,153 +9,301 @@
     <meta property="og:description" content="Lịch sử giao dịch">
 {% endblock %}
 {% block content %}
-<main class=" flex flex-col justify-center items-center  grow py-[15px] text-sky-500">
-    <div class="w-full lg:w-[1200px] flex flex-col justify-center items-center grow gap-3 bg-stone-50 border-[1px] border-stone-200 rounded-lg p-[20px]">
-        <h1 class="font-bold text-[20px] lg:text-[23px]">Lịch sử giao dịch</h1>
-        <div class="flex flex-col items-center justify-center w-full gap-3">
-            <div class="flex flex-col w-full border-[1px] border-sky-500 divide-y-[1px] divide-sky-500">
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="text-center w-[40%] py-2 overflow-hidden font-bold">Tên người dùng</span>
-                    <span class="text-center w-[20%] py-2 overflow-hidden font-bold">Số tiền trong tài khoản</span>
-                    <span class="text-center w-[40%] py-2 overflow-hidden font-bold">Chức năng</span>
+<main class=" flex flex-col justify-center items-center  grow lg:py-[15px] text-stone-950">
+    <div class="w-full lg:w-[1200px] flex flex-col justify-center items-center grow gap-3 bg-stone-50 lg:border-[1px] border-stone-200  p-[20px]">
+        <h1 class="font-bold text-[20px] lg:text-[23px]">Danh sách người dùng</h1>
+        <div class="hidden lg:flex flex-col items-center justify-center w-full gap-3 overflow-x-auto">
+            <div class="flex flex-col w-full border-[1px] border-stone-950 divide-y-[1px] divide-stone-950">
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="text-center w-[35%] p-2 overflow-hidden font-bold">Tên người dùng</span>
+                    <span class="text-center w-[30%] p-2 overflow-hidden font-bold">Số tiền trong tài khoản</span>
+                    <span class="text-center w-[35%] p-2 overflow-hidden font-bold">Chức năng</span>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[40%] overflow-hidden">vuthaind@gmail.com</span>
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[20%] overflow-hidden">100.000đ</span>
-                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[40%] py-2 overflow-hidden px-2">
-                        <a class="open_form_deposit_money bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
-                        <a class="open_form_change_password  bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[35%] overflow-hidden">vuthaind@gmail.com</span>
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[30%] overflow-hidden">100.000đ</span>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[35%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
                     </div>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[40%] overflow-hidden">vuthaind@gmail.com</span>
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[20%] overflow-hidden">100.000đ</span>
-                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[40%] py-2 overflow-hidden px-2">
-                        <a class="open_form_deposit_money bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
-                        <a class="open_form_change_password  bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[35%] overflow-hidden">vuthaind@gmail.com</span>
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[30%] overflow-hidden">100.000đ</span>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[35%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
                     </div>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[40%] overflow-hidden">vuthaind@gmail.com</span>
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[20%] overflow-hidden">100.000đ</span>
-                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[40%] py-2 overflow-hidden px-2">
-                        <a class="open_form_deposit_money bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
-                        <a class="open_form_change_password  bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[35%] overflow-hidden">vuthaind@gmail.com</span>
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[30%] overflow-hidden">100.000đ</span>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[35%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
                     </div>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[40%] overflow-hidden">vuthaind@gmail.com</span>
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[20%] overflow-hidden">100.000đ</span>
-                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[40%] py-2 overflow-hidden px-2">
-                        <a class="open_form_deposit_money bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
-                        <a class="open_form_change_password  bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[35%] overflow-hidden">vuthaind@gmail.com</span>
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[30%] overflow-hidden">100.000đ</span>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[35%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
                     </div>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[40%] overflow-hidden">vuthaind@gmail.com</span>
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[20%] overflow-hidden">100.000đ</span>
-                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[40%] py-2 overflow-hidden px-2">
-                        <a class="open_form_deposit_money bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
-                        <a class="open_form_change_password  bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[35%] overflow-hidden">vuthaind@gmail.com</span>
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[30%] overflow-hidden">100.000đ</span>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[35%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
                     </div>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[40%] overflow-hidden">vuthaind@gmail.com</span>
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[20%] overflow-hidden">100.000đ</span>
-                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[40%] py-2 overflow-hidden px-2">
-                        <a class="open_form_deposit_money bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
-                        <a class="open_form_change_password  bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[35%] overflow-hidden">vuthaind@gmail.com</span>
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[30%] overflow-hidden">100.000đ</span>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[35%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
                     </div>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[40%] overflow-hidden">vuthaind@gmail.com</span>
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[20%] overflow-hidden">100.000đ</span>
-                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[40%] py-2 overflow-hidden px-2">
-                        <a class="open_form_deposit_money bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
-                        <a class="open_form_change_password  bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[35%] overflow-hidden">vuthaind@gmail.com</span>
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[30%] overflow-hidden">100.000đ</span>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[35%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
                     </div>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[40%] overflow-hidden">vuthaind@gmail.com</span>
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[20%] overflow-hidden">100.000đ</span>
-                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[40%] py-2 overflow-hidden px-2">
-                        <a class="open_form_deposit_money bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
-                        <a class="open_form_change_password  bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[35%] overflow-hidden">vuthaind@gmail.com</span>
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[30%] overflow-hidden">100.000đ</span>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[35%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
                     </div>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[40%] overflow-hidden">vuthaind@gmail.com</span>
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[20%] overflow-hidden">100.000đ</span>
-                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[40%] py-2 overflow-hidden px-2">
-                        <a class="open_form_deposit_money bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
-                        <a class="open_form_change_password  bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[35%] overflow-hidden">vuthaind@gmail.com</span>
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[30%] overflow-hidden">100.000đ</span>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[35%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
                     </div>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[40%] overflow-hidden">vuthaind@gmail.com</span>
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[20%] overflow-hidden">100.000đ</span>
-                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[40%] py-2 overflow-hidden px-2">
-                        <a class="open_form_deposit_money bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
-                        <a class="open_form_change_password  bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[35%] overflow-hidden">vuthaind@gmail.com</span>
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[30%] overflow-hidden">100.000đ</span>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[35%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
                     </div>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[40%] overflow-hidden">vuthaind@gmail.com</span>
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[20%] overflow-hidden">100.000đ</span>
-                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[40%] py-2 overflow-hidden px-2">
-                        <a class="open_form_deposit_money bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
-                        <a class="open_form_change_password  bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[35%] overflow-hidden">vuthaind@gmail.com</span>
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[30%] overflow-hidden">100.000đ</span>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[35%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
                     </div>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[40%] overflow-hidden">vuthaind@gmail.com</span>
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[20%] overflow-hidden">100.000đ</span>
-                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[40%] py-2 overflow-hidden px-2">
-                        <a class="open_form_deposit_money bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
-                        <a class="open_form_change_password  bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[35%] overflow-hidden">vuthaind@gmail.com</span>
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[30%] overflow-hidden">100.000đ</span>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[35%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
                     </div>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[40%] overflow-hidden">vuthaind@gmail.com</span>
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[20%] overflow-hidden">100.000đ</span>
-                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[40%] py-2 overflow-hidden px-2">
-                        <a class="open_form_deposit_money bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
-                        <a class="open_form_change_password  bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[35%] overflow-hidden">vuthaind@gmail.com</span>
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[30%] overflow-hidden">100.000đ</span>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[35%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
                     </div>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-sky-500">
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[40%] overflow-hidden">vuthaind@gmail.com</span>
-                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[20%] overflow-hidden">100.000đ</span>
-                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[40%] py-2 overflow-hidden px-2">
-                        <a class="open_form_deposit_money bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
-                        <a class="open_form_change_password  bg-sky-500 px-3 py-1 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[35%] overflow-hidden">vuthaind@gmail.com</span>
+                    <span class="flex items-center justify-center leading-none py-0 my-0 w-[30%] overflow-hidden">100.000đ</span>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[35%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                    </div>
+                </div>
+            </div>      
+        </div>
+        <div class=" lg:hidden flex flex-col items-center justify-center w-full gap-3 overflow-x-auto">
+            <div class="flex flex-col w-full border-[1px] border-stone-950 divide-y-[1px] divide-stone-950">
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <span class="text-center w-[50%] p-2 overflow-hidden font-bold">Người dùng</span>
+                    <span class="text-center w-[50%] p-2 overflow-hidden font-bold">Chức năng</span>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <div class="flex flex-col gap-2 justify-center w-[50%]">
+                        <span class="flex items-center justify-center leading-none py-0 my-0  overflow-hidden">vuthaind@gmail.com</span>
+                        <span class="flex items-center justify-center leading-none py-0 my-0 overflow-hidden font-bold">100.000đ</span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[50%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                    </div>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <div class="flex flex-col gap-2 justify-center w-[50%]">
+                        <span class="flex items-center justify-center leading-none py-0 my-0  overflow-hidden">vuthaind@gmail.com</span>
+                        <span class="flex items-center justify-center leading-none py-0 my-0 overflow-hidden font-bold">100.000đ</span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[50%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                    </div>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <div class="flex flex-col gap-2 justify-center w-[50%]">
+                        <span class="flex items-center justify-center leading-none py-0 my-0  overflow-hidden">vuthaind@gmail.com</span>
+                        <span class="flex items-center justify-center leading-none py-0 my-0 overflow-hidden font-bold">100.000đ</span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[50%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                    </div>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <div class="flex flex-col gap-2 justify-center w-[50%]">
+                        <span class="flex items-center justify-center leading-none py-0 my-0  overflow-hidden">vuthaind@gmail.com</span>
+                        <span class="flex items-center justify-center leading-none py-0 my-0 overflow-hidden font-bold">100.000đ</span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[50%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                    </div>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <div class="flex flex-col gap-2 justify-center w-[50%]">
+                        <span class="flex items-center justify-center leading-none py-0 my-0  overflow-hidden">vuthaind@gmail.com</span>
+                        <span class="flex items-center justify-center leading-none py-0 my-0 overflow-hidden font-bold">100.000đ</span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[50%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                    </div>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <div class="flex flex-col gap-2 justify-center w-[50%]">
+                        <span class="flex items-center justify-center leading-none py-0 my-0  overflow-hidden">vuthaind@gmail.com</span>
+                        <span class="flex items-center justify-center leading-none py-0 my-0 overflow-hidden font-bold">100.000đ</span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[50%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                    </div>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <div class="flex flex-col gap-2 justify-center w-[50%]">
+                        <span class="flex items-center justify-center leading-none py-0 my-0  overflow-hidden">vuthaind@gmail.com</span>
+                        <span class="flex items-center justify-center leading-none py-0 my-0 overflow-hidden font-bold">100.000đ</span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[50%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                    </div>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <div class="flex flex-col gap-2 justify-center w-[50%]">
+                        <span class="flex items-center justify-center leading-none py-0 my-0  overflow-hidden">vuthaind@gmail.com</span>
+                        <span class="flex items-center justify-center leading-none py-0 my-0 overflow-hidden font-bold">100.000đ</span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[50%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                    </div>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <div class="flex flex-col gap-2 justify-center w-[50%]">
+                        <span class="flex items-center justify-center leading-none py-0 my-0  overflow-hidden">vuthaind@gmail.com</span>
+                        <span class="flex items-center justify-center leading-none py-0 my-0 overflow-hidden font-bold">100.000đ</span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[50%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                    </div>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <div class="flex flex-col gap-2 justify-center w-[50%]">
+                        <span class="flex items-center justify-center leading-none py-0 my-0  overflow-hidden">vuthaind@gmail.com</span>
+                        <span class="flex items-center justify-center leading-none py-0 my-0 overflow-hidden font-bold">100.000đ</span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[50%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                    </div>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <div class="flex flex-col gap-2 justify-center w-[50%]">
+                        <span class="flex items-center justify-center leading-none py-0 my-0  overflow-hidden">vuthaind@gmail.com</span>
+                        <span class="flex items-center justify-center leading-none py-0 my-0 overflow-hidden font-bold">100.000đ</span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[50%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                    </div>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <div class="flex flex-col gap-2 justify-center w-[50%]">
+                        <span class="flex items-center justify-center leading-none py-0 my-0  overflow-hidden">vuthaind@gmail.com</span>
+                        <span class="flex items-center justify-center leading-none py-0 my-0 overflow-hidden font-bold">100.000đ</span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[50%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                    </div>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <div class="flex flex-col gap-2 justify-center w-[50%]">
+                        <span class="flex items-center justify-center leading-none py-0 my-0  overflow-hidden">vuthaind@gmail.com</span>
+                        <span class="flex items-center justify-center leading-none py-0 my-0 overflow-hidden font-bold">100.000đ</span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[50%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
+                    </div>
+                </div>
+                <div class="flex w-full divide-x-[1px] divide-stone-950">
+                    <div class="flex flex-col gap-2 justify-center w-[50%]">
+                        <span class="flex items-center justify-center leading-none py-0 my-0  overflow-hidden">vuthaind@gmail.com</span>
+                        <span class="flex items-center justify-center leading-none py-0 my-0 overflow-hidden font-bold">100.000đ</span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-2 justify-center items-center w-[50%] p-4 overflow-hidden">
+                        <a class="open_form_deposit_money bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Nạp tiền</a>
+                        <a class="open_form_change_password  bg-stone-950 px-3 py-3 rounded-lg text-stone-50 font-bold whitespace-nowrap cursor-pointer w-full text-center">Đổi mật khẩu</a>
                     </div>
                 </div>
             </div>      
         </div>
     </div>
 </main>
-<div class="form_change_password fixed inset-0 flex justify-center items-center bg-sky-500 bg-opacity-30" style="display: none;">
-    <form class=" flex flex-col gap-3 items-center justify-center bg-stone-50 rounded-lg text-sky-500 w-[500px] p-[20px]">
+<div class="form_change_password fixed inset-0 flex justify-center items-center bg-stone-950 bg-opacity-30 px-[15px] lg:px-[0px]" style="display: none;">
+    <form class=" flex flex-col gap-3 items-center justify-center bg-stone-50 rounded-lg text-stone-950 w-[500px] p-[20px]">
         <span class="font-bold">
             Đổi mật khẩu cho 'vuthaind@gmail.com'
         </span>
         <input placeholder="Nhập mật khẩu mới" class="rounded-lg w-[300px] text-center" />
         <div class="flex items-center gap-2">
-            <button class="bg-sky-500 rounded-lg font-bold text-stone-50 px-3 py-2">Đổi mật khẩu</button>
-            <span class="close_form_change_password bg-sky-900 rounded-lg font-bold text-stone-50 px-3 py-2 cursor-pointer">Huỷ</span>
+            <button class="bg-stone-950 rounded-lg font-bold text-stone-50 px-3 p-2">Đổi mật khẩu</button>
+            <span class="close_form_change_password bg-stone-600 rounded-lg font-bold text-stone-50 px-3 p-2 cursor-pointer">Huỷ</span>
         </div>
     </form>
 </div>
-<div class="form_deposit_money fixed inset-0 flex justify-center items-center bg-sky-500 bg-opacity-30" style="display: none;">
-    <form class=" flex flex-col gap-3 items-center justify-center bg-stone-50 rounded-lg text-sky-500 w-[500px] p-[20px]">
+<div class="form_deposit_money fixed inset-0 flex justify-center items-center bg-stone-950 bg-opacity-30 px-[15px] lg:px-[0px]" style="display: none;">
+    <form class=" flex flex-col gap-3 items-center justify-center bg-stone-50 rounded-lg text-stone-950 w-[500px] p-[20px]">
         <span class="font-bold">
             Nạp tiền cho 'vuthaind@gmail.com'
         </span>
         <input type="number" placeholder="Nhập số tiền cần nạp" class="rounded-lg w-[300px] text-center" />
         <div class="flex items-center gap-2">
-            <button class="bg-sky-500 rounded-lg font-bold text-stone-50 px-3 py-2">Nạp tiền</button>
-            <span class="close_form_deposit_money bg-sky-900 rounded-lg font-bold text-stone-50 px-3 py-2 cursor-pointer">Huỷ</span>
+            <button class="bg-stone-950 rounded-lg font-bold text-stone-50 px-3 p-2">Nạp tiền</button>
+            <span class="close_form_deposit_money bg-stone-600 rounded-lg font-bold text-stone-50 px-3 p-2 cursor-pointer">Huỷ</span>
         </div>
     </form>
 </div>
