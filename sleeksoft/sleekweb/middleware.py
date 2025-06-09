@@ -21,7 +21,7 @@ class BlockAfterDateMiddleware:
         self.get_response = get_response
         # Thiết lập ngày hết hạn
         self.expiry_date = datetime.datetime(2025, 6, 6)
-        self.expiry_date += datetime.timedelta(days=env('DAY_BLOCK'))
+        self.expiry_date += datetime.timedelta(days=int(env('DAY_BLOCK')))
 
     def __call__(self, request):
         current_time = datetime.datetime.now()
