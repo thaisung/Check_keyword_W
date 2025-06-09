@@ -20,104 +20,34 @@
                     <span class="text-center w-[50%] py-2 overflow-hidden font-bold">Thanh toán (VND)</span>
                     <span class="text-center w-[50%] py-2 overflow-hidden font-bold">Trạng thái</span>
                 </div>
+                {% for i in list_Transaction_history %}
                 <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Nạp tiền</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">+ 100.000</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thành công</span>
+                    {% if request.user.is_superuser %}
+                      {% if request.user == i.Belong_User %}
+                        <span class="text-center flex items-center justify-center w-[50%] py-2 overflow-hidden">{{i.Code}}</span>
+                      {% else %}
+                        <div class="flex flex-col justify-center items-center w-[50%] py-2 overflow-hidden">
+                          <span class="text-center overflow-hidden">{{i.Code}}</span>
+                          <span class="text-center overflow-hidden text-blue-500">{{i.Belong_User.username}}</span>
+                        </div>
+                      {% endif %}
+                    {% else %}
+                      <span class="text-center flex items-center justify-center w-[50%] py-2 overflow-hidden">{{i.Code}}</span>
+                    {% endif %}
+                    <span class="text-center flex items-center justify-center w-[50%] py-2 overflow-hidden">{{i.Content}}</span>
+                    <span class="format_number text-center flex items-center justify-center w-[50%] py-2 overflow-hidden">{{i.Value}}</span>
+                    <span class="text-center flex items-center justify-center w-[50%] py-2 overflow-hidden">
+                        {% if i.Status == 1 %}
+                        <span class="text-green-500">Thành công</span>
+                        {% elif i.Status == 0  %}
+                        <span class="text-red-500">Thất bại</span>
+                        {% else  %}
+                        <span class="text-sky-500">Đang xử lý</span>
+                        {% endif %}
+                    </span>
                 </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Nạp tiền</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">+ 100.000</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thất bại</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Đăng kí tháng</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">- 50.000</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thành công</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Tìm kiếm từ khoá</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">- 500</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thành công</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Nạp tiền</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">+ 100.000</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thành công</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Nạp tiền</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">+ 100.000</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thất bại</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Đăng kí tháng</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">- 50.000</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thành công</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Tìm kiếm từ khoá</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">- 500</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thành công</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Nạp tiền</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">+ 100.000</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thành công</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Nạp tiền</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">+ 100.000</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thất bại</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Đăng kí tháng</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">- 50.000</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thành công</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Tìm kiếm từ khoá</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">- 500</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thành công</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Nạp tiền</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">+ 100.000</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thành công</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Nạp tiền</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">+ 100.000</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thất bại</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Đăng kí tháng</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">- 50.000</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thành công</span>
-                </div>
-                <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">025620005</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Tìm kiếm từ khoá</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">- 500</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thành công</span>
-                </div>
+                {% endfor %}          
             </div>
-
         </div>
     </div>
 </main>

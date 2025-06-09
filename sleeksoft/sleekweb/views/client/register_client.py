@@ -79,14 +79,14 @@ def register_client(request):
         password =  request.POST.get('password')
         email = username
         if username is None or password is None or email is None:
-            return JsonResponse({'success': False, 'message': 'Your login action is not accepted. Please go to the official WEBSITE page to register..'},json_dumps_params={'ensure_ascii': False})
+            return JsonResponse({'success': False, 'message': 'Hành động đăng nhập của bạn không được chấp nhận. Vui lòng vào trang WEBSITE chính thức để đăng ký.'},json_dumps_params={'ensure_ascii': False})
         elif not username or not password  or not email:
-            return JsonResponse({'success': False, 'message': 'Fill in all required information before registering.'},json_dumps_params={'ensure_ascii': False})
+            return JsonResponse({'success': False, 'message': 'Điền đầy đủ thông tin bắt buộc trước khi đăng ký.'},json_dumps_params={'ensure_ascii': False})
         else:
             if User.objects.filter(username=username).exists():
-                return JsonResponse({'success': False, 'message': 'Username already exists'},json_dumps_params={'ensure_ascii': False})
+                return JsonResponse({'success': False, 'message': 'Tên người dùng đã tồn tại.'},json_dumps_params={'ensure_ascii': False})
             elif User.objects.filter(email=email).exists():
-                return JsonResponse({'success': False, 'message': 'Email already exists'},json_dumps_params={'ensure_ascii': False})
+                return JsonResponse({'success': False, 'message': 'Email đã tồn tại.'},json_dumps_params={'ensure_ascii': False})
             else:
                 obj_user = User.objects.create_user(username=username,email=email,password=password,is_staff=True)
                 Time_user.objects.create(Belong_User=obj_user)
@@ -114,7 +114,7 @@ def register_client(request):
 
                 except (User.DoesNotExist, ValueError):
                     print('Invalid data')
-            return JsonResponse({'success': True,'message': 'Account registration successful. Log in now !', 'redirect_url': reverse('login_client')},json_dumps_params={'ensure_ascii': False})
+            return JsonResponse({'success': True,'message': 'Đăng ký tài khoản thành công. Đăng nhập ngay !', 'redirect_url': reverse('login_client')},json_dumps_params={'ensure_ascii': False})
     else:
         return redirect('register_client')
     

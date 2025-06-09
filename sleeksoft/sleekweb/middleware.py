@@ -7,11 +7,21 @@ from django.shortcuts import redirect
 import datetime
 from django.http import HttpResponse
 
+import environ
+from pathlib import Path
+import os
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env()
+# environ.Env.read_env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 class BlockAfterDateMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
         # Thiết lập ngày hết hạn
         self.expiry_date = datetime.datetime(2025, 6, 6)
+        self.expiry_date += datetime.timedelta(days=env('DAY_BLOCK'))
 
     def __call__(self, request):
         current_time = datetime.datetime.now()

@@ -14,16 +14,16 @@
         <h1 class="font-bold text-[20px] lg:text-[23px]">Hồ sơ tài khoản</h1>
         <div class="flex flex-col gap-2 w-full lg:w-[400px]">
             <div class="flex items-center justify-between w-full">
-                <span>Tên tài khoản :</span>
-                <span>vuthaind@gmail.com</span>
+                <span class="font-bold">Tên tài khoản :</span>
+                <span>{{request.user.username}}</span>
             </div>
             <div class="flex items-center justify-between w-full">
-                <span>Số tiền hiện có :</span>
-                <span>500.000đ</span>
+                <span class="font-bold">Số tiền hiện có :</span>
+                <span class="format_number">{{request.user.Money|default:'0'}} đ</span>
             </div>
             <div class="flex items-center justify-center gap-2 mt-2">
-                <a class="font-bold cursor-pointer flex items-center justify-center gap-1 bg-stone-950 text-stone-50 rounded-lg py-2 w-full">Đổi mật khẩu</a>
-                <a class="font-bold cursor-pointer flex items-center justify-center gap-1 bg-stone-950 text-stone-50 rounded-lg py-2 w-full">Đăng xuất</a>
+                <a class="open_form_change_password font-bold cursor-pointer flex items-center justify-center gap-1 bg-stone-950 text-stone-50 rounded-lg py-2 w-full" data-username="{{request.user.username}}">Đổi mật khẩu</a>
+                <a href="{% url 'logout_client' %}" class="font-bold cursor-pointer flex items-center justify-center gap-1 bg-stone-950 text-stone-50 rounded-lg py-2 w-full">Đăng xuất</a>
             </div>
             <div class="flex items-center justify-between w-full mt-2">
                 <a class="text-stone-950 font-bold cursor-pointer underline">Bảng giá</a>
@@ -33,6 +33,54 @@
         </div>
     </div>
 </main>
+<div class="form_change_password fixed inset-0 flex justify-center items-center bg-stone-950 bg-opacity-30 px-[15px] lg:px-[0px]" style="display: none;">
+    <form action="{% url 'change_password_client' %}" method="post" class=" flex flex-col gap-3 items-center justify-center bg-stone-50 rounded-lg text-stone-950 w-[500px] p-[20px]">
+        <span class="labe_user font-bold">
+            Đổi mật khẩu cho 'vuthaind@gmail.com'
+        </span>
+        {% csrf_token %}
+        <input type="hidden" name="username" value=""  class="value_username rounded-lg w-[300px] text-center" />
+        <input placeholder="Nhập mật khẩu mới" name="new_password" class="rounded-lg w-[300px] text-center" />
+        <div class="flex items-center gap-2">
+            <button class="bg-stone-950 rounded-lg font-bold text-stone-50 px-3 p-2">Đổi mật khẩu</button>
+            <span class="close_form_change_password bg-stone-600 rounded-lg font-bold text-stone-50 px-3 p-2 cursor-pointer">Huỷ</span>
+        </div>
+    </form>
+    {% if messages %}
+    <script>
+        window.onload = function () {
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    alert("✅ {{ message }}");
+                {% elif message.tags == 'error' %}
+                    alert("❌ {{ message }}");
+                {% else %}
+                    alert("ℹ️ {{ message }}");
+                {% endif %}
+            {% endfor %}
+        }
+    </script>
+    {% endif %}
+</div>
+<script>
+  $(document).ready(function () {
+    // Mở form
+    $('.open_form_change_password').on('click', function () {
+      const username = $(this).data('username');  // Lấy từ thuộc tính data-username
+
+      // Gán nội dung vào .labe_user
+      $('.labe_user').text(`Đổi mật khẩu cho '${username}'`);
+      $('.value_username').val(username);
+      $('.form_change_password').fadeIn();
+    });
+
+    // Đóng form
+    $('.close_form_change_password').on('click', function (e) {
+      e.preventDefault(); // tránh việc submit nếu là <button> trong form
+      $('.form_change_password').fadeOut();
+    });
+  });
+</script>
 <style>
     .pagination ul {
       width: auto;

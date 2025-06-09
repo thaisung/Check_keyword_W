@@ -11,45 +11,131 @@
 {% block content %}
 <main class=" flex flex-col justify-center items-center  grow lg:py-[15px] text-stone-950">
     <div class="w-full lg:w-[1200px] flex flex-col justify-center items-center grow gap-3 bg-stone-50 lg:border-[1px] border-stone-200  p-[20px]">
-        <form id="form_deposit" class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3">
+        {% if messages %}
+          {% for message in messages %}
+            {% if message.tags == 'success' %}
+              <div id="success_deposit" class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3">
+                <div class="success-animation">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
+                </div>
+                <span class="text-[22px] font-bold">Nạp tiền thành công</span>
+              </div>
+            {% elif message.tags == 'error' %}
+              <div id="success_deposit" class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3">
+                <div class="success-animation">
+                  <svg width="100px" height="100px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+                      <title>error_outline</title>
+                      <desc>Created with Sketch.</desc>
+                      <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g id="Two-Tone" transform="translate(-170.000000, -730.000000)">
+                              <g id="Alert" transform="translate(100.000000, 674.000000)">
+                                  <g id="Two-Tone-/-Alert-/-error_outline" transform="translate(68.000000, 54.000000)">
+                                      <g>
+                                          <rect id="Rectangle-Copy-2" x="0" y="0" width="24" height="24"></rect>
+                                          <path d="M11.99,2 C6.47,2 2,6.48 2,12 C2,17.52 6.47,22 11.99,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 11.99,2 Z M12,20 C7.58,20 4,16.42 4,12 C4,7.58 7.58,4 12,4 C16.42,4 20,7.58 20,12 C20,16.42 16.42,20 12,20 Z M11,15 L13,15 L13,17 L11,17 L11,15 Z M11,7 L13,7 L13,13 L11,13 L11,7 Z" id="🔹-Primary-Color" fill="#ef4444"></path>
+                                      </g>
+                                  </g>
+                              </g>
+                          </g>
+                      </g>
+                  </svg>
+                </div>
+                <div class="flex flex-col justify-center items-center">
+                  <span class="text-[22px] font-bold">Nạp tiền không thành công</span>
+                  <span class="text-[18px] font-semibold">Hệ thống chưa tìm thấy giao dịch nào gần đây của bạn</span>
+                </div>
+              </div>
+            {% else %}
+              <form action="{% url 'deposit_money_client' %}" method="post" id="form_deposit" class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3">
+                <h1 class="font-bold text-[20px] lg:text-[23px]">Nạp tiền tài khoản</h1>
+                {% csrf_token %}
+                <input  type="hidden"  name="Code" class="value_code w-full text-center rounded-lg bg-stone-200 text-stone-950 border-none shadow-md h-[60px] text-[20px] font-bold" required/>
+                <input placeholder="Nhập số tiền cần nạp" type="number" min="0" name="money" class="value_money w-full text-center rounded-lg bg-stone-200 text-stone-950 border-none shadow-md h-[60px] text-[20px] font-bold" required/>
+                <button type="submit" class="bg-stone-950 rounded-lg text-stone-50 font-bold px-3 py-2">Tiến hành thanh toán</button>
+              </form>
+              <div id="loader_deposit" class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3" style="display: none;">
+                  <img src="https://img.vietqr.io/image/ACB-9493537-print.png?accountName=VU VAN THAI&amount=1000&addInfo=123" class="loader_img w-[500px]" />
+                  <div class="flex items-center gap-2">
+                      <span class="loader"></span>
+                      <span class="text-[22px] font-medium">Đang chờ thanh toán</span>
+                  </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <form action="{% url 'deposit_money_client' %}" method="post" id="form_deposit" class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3">
             <h1 class="font-bold text-[20px] lg:text-[23px]">Nạp tiền tài khoản</h1>
-            <input placeholder="Nhập số tiền cần nạp" type="number" class="w-full text-center rounded-lg bg-stone-200 text-stone-950 border-none shadow-md h-[60px] text-[20px] font-bold" />
+            {% csrf_token %}
+            <input  type="hidden"  name="Code" class="value_code w-full text-center rounded-lg bg-stone-200 text-stone-950 border-none shadow-md h-[60px] text-[20px] font-bold" required/>
+            <input placeholder="Nhập số tiền cần nạp" type="number" min="0" name="money" class="value_money w-full text-center rounded-lg bg-stone-200 text-stone-950 border-none shadow-md h-[60px] text-[20px] font-bold" required/>
             <button type="submit" class="bg-stone-950 rounded-lg text-stone-50 font-bold px-3 py-2">Tiến hành thanh toán</button>
-        </form>
-        <div id="loader_deposit" class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3" style="display: none;">
-            <img src="https://img.vietqr.io/image/ACB-9493537-print.png?accountName=VU VAN THAI&amount=100000&addInfo=DVFB3JQ86Q" class="w-[500px]" />
-            <div class="flex items-center gap-2">
-                <span class="loader"></span>
-                <span class="text-[22px] font-medium">Đang chờ thanh toán</span>
-            </div>
-        </div>
-        <div id="success_deposit" class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3" style="display: none;">
-            <div class="success-animation">
-                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
-            </div>
-            <span class="text-[22px] font-bold">Nạp tiền thành công</span>
-        </div>
+          </form>
+          <div id="loader_deposit" class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3" style="display: none;">
+              <img src="https://img.vietqr.io/image/ACB-9493537-print.png?accountName=VU VAN THAI&amount=1000&addInfo=123" class="loader_img w-[500px]" />
+              <div class="flex items-center gap-2">
+                  <span class="loader"></span>
+                  <span class="text-[22px] font-medium">Đang chờ thanh toán</span>
+              </div>
+          </div>
+        {% endif %}
     </div>
 </main>
+{% if messages %}
+  <script>
+      window.onload = function () {
+          {% for message in messages %}
+              {% if message.tags == 'success' %}
+                  // alert("✅ {{ message }}");
+                  // $('#form_deposit').hide();
+                  // $('#success_deposit').fadeIn();
+              {% elif message.tags == 'error' %}
+                  // alert("❌ {{ message }}");
+              {% else %}
+                  alert("ℹ️ {{ message }}");
+              {% endif %}
+          {% endfor %}
+      }
+  </script>
+{% endif %}
 <script>
   $(document).ready(function () {
-    $('#form_deposit').on('submit', function (e) {
-      e.preventDefault();
+    // Tạo chuỗi số ngẫu nhiên 9 chữ số
+    const randomCode = Math.floor(100000000 + Math.random() * 900000000); // Từ 100000000 đến 999999999
 
-      // 1. Ẩn form nạp tiền
-      $('#form_deposit').hide();
-
-      // 2. Hiện loader chờ thanh toán
-      $('#loader_deposit').fadeIn();
-
-      // 3. Sau 3 giây, ẩn loader và hiện thành công
-      setTimeout(function () {
-        $('#loader_deposit').fadeOut(function () {
-          $('#success_deposit').fadeIn();
-        });
-      }, 3000);
-    });
+    // Gán vào input có class value_code
+    $('.value_code').val(randomCode);
   });
+</script>
+<script>
+  $(document).ready(function () {
+      $('#form_deposit').on('submit', function (e) {
+        // Lấy giá trị money từ input
+        const money = $('.value_money').val();
+        const code = $('.value_code').val();
+
+        // Lấy src hiện tại của img
+        let src = $('.loader_img').attr('src');
+
+        // Thay đổi tham số amount trong src thành giá trị money mới
+        // Cách đơn giản: thay amount=... bằng amount=money
+        src = src
+              .replace(/amount=\d+/, `amount=${money}`)
+              .replace(/addInfo=[^&]+/, `addInfo=${code}`);
+
+        // Cập nhật src mới cho img
+        $('.loader_img').attr('src', src);
+
+        // Ẩn form nạp tiền
+        $('#form_deposit').hide();
+
+        // Hiện loader chờ thanh toán
+        $('#loader_deposit').fadeIn();
+
+        // Nếu muốn không gửi form lên server lúc submit (chỉ demo), uncomment dòng dưới
+        // e.preventDefault();
+      });
+    });
 </script>
 <style>
     .success-animation { margin:20px auto;}

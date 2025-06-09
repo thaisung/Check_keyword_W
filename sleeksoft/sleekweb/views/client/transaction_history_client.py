@@ -69,10 +69,16 @@ from django.core.mail import send_mail,EmailMessage
 
     
 def transaction_history_client(request):
+    if not request.user.is_authenticated:
+        return redirect('login_client')
     if request.method == 'GET':
         context = {}
         lc = request.COOKIES.get('language') or 'en'
         context['domain'] = settings.DOMAIN
+        if request.user.is_superuser:
+            context['list_Transaction_history'] = Transaction_history.objects.all().order_by('-id')
+        else:
+            context['list_Transaction_history'] = Transaction_history.objects.filter(Belong_User=request.user).order_by('-id')
         print('context:',context)
         return render(request, 'sleekweb/client/transaction_history_client.html', context, status=200)
     

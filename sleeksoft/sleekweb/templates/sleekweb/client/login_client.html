@@ -61,7 +61,7 @@
                     var formData = new FormData(this);  // Tạo FormData từ form hiện tại
                 
                     $.ajax({
-                        url: '{% url 'login_admin' %}',
+                        url: '{% url 'login_client' %}',
                         method: 'POST',
                         // headers: {
                         //     'X-CSRFToken': '{{ csrf_token }}'
@@ -88,6 +88,21 @@
         </script>
     </div>
 </main>
+{% if messages %}
+  <script>
+      window.onload = function () {
+          {% for message in messages %}
+              {% if message.tags == 'success' %}
+                  alert("✅ {{ message }}");
+              {% elif message.tags == 'error' %}
+                  alert("❌ {{ message }}");
+              {% else %}
+                  alert("ℹ️ {{ message }}");
+              {% endif %}
+          {% endfor %}
+      }
+  </script>
+{% endif %}
 <style>
     .pagination ul {
       width: auto;

@@ -26,6 +26,7 @@ class User(AbstractUser):
     Full_name = models.CharField('Họ và tên', max_length=255,blank=True, null=True)
     Phone_number = models.CharField('Số điện thoại', max_length=255,blank=True, null=True)
     OTP = models.CharField('Mã Otp',max_length=255, null=True,blank=True)
+    Money = models.IntegerField('Tiền',max_length=255, null=True,blank=True,default=0)
     Creation_time = models.DateTimeField('Thời gian tạo',auto_now_add=True)
     Update_time = models.DateTimeField('Thời gian cập nhật',auto_now=True)
     class Meta:
@@ -42,7 +43,7 @@ class Time_user(models.Model):
     
     Start_time = models.DateTimeField('Thời gian tạo',auto_now_add=True)
     End_time = models.DateTimeField('Thời gian Kết thúc',auto_now_add=True)
-    Belong_User = models.OneToOneField(User, on_delete=models.CASCADE, related_name='obj_user',blank=True, null=True)
+    Belong_User = models.OneToOneField(User, on_delete=models.CASCADE, related_name='obj_Time_user',blank=True, null=True)
     Creation_time = models.DateTimeField('Thời gian tạo',auto_now_add=True)
     Update_time = models.DateTimeField('Thời gian cập nhật',auto_now=True)
 
@@ -51,71 +52,63 @@ class Time_user(models.Model):
             remaining = (self.End_time - timezone.now()).days
             return max(remaining, 0)
         return 0
-
-class Region(models.Model):
+    
+class Keyword(models.Model):
     class Meta:
         ordering = ["id"]
-        verbose_name_plural = "Khu lớn"
+        verbose_name_plural = "Bảng giá"
     
-    Name = models.CharField('Tên Châu lục', max_length=100,blank=True, null=True)
+    Count_keyword = models.IntegerField('Số từ 1 ngày dã sử dụng',blank=True, null=True,default=0)
+    Now_time = models.DateTimeField('Thời gian tạo',auto_now_add=True)
+    Belong_User = models.OneToOneField(User, on_delete=models.CASCADE, related_name='obj_Keyword',blank=True, null=True)
     Creation_time = models.DateTimeField('Thời gian tạo',auto_now_add=True)
     Update_time = models.DateTimeField('Thời gian cập nhật',auto_now=True)
 
-class Nation(models.Model):
+class Transaction_history(models.Model):
     class Meta:
         ordering = ["id"]
-        verbose_name_plural = "Khu nhỏ"
+        verbose_name_plural = "Lịch sử giao dịch"
     
-    Name = models.CharField('Tên quốc gia', max_length=100,blank=True, null=True)
-    Belong_Region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name='list_nation',blank=True, null=True)
+    Code = models.CharField('Mã giao dịch', max_length=10,blank=True, null=True)
+    Content = models.CharField('Nội dung GD', max_length=100,blank=True, null=True)
+    Belong_User = models.ForeignKey(User, on_delete=models.CASCADE, related_name='list_transaction_history',blank=True, null=True)
+    Status = models.IntegerField('Trạng thái', max_length=50,blank=True, null=True,default=2)
+    Value = models.CharField('Giá trị', max_length=50,blank=True, null=True)
     Creation_time = models.DateTimeField('Thời gian tạo',auto_now_add=True)
     Update_time = models.DateTimeField('Thời gian cập nhật',auto_now=True)
 
-class XY(models.Model):
+class Price_list(models.Model):
     class Meta:
         ordering = ["id"]
-        verbose_name_plural = "Người tham gia"
+        verbose_name_plural = "Bảng giá"
     
-    uuid = models.CharField('uuid', max_length=100,blank=True, null=True)
-    Avatar = models.ImageField(upload_to='AVATAR_PRODUCT',null=True,blank=True)
-    Name = models.CharField('Tên NV', max_length=100,blank=True, null=True)
-    Phone = models.CharField('Số đt', max_length=100,blank=True, null=True)
-    Overnight = models.CharField('Qua đêm', max_length=10,blank=True, null=True,default='0')
-    Year_of_birth = models.CharField('Năm sinh', max_length=50,blank=True, null=True)
-    Height = models.CharField('Chiều cao', max_length=50,blank=True, null=True)
-    Weight = models.CharField('Cân nặng', max_length=50,blank=True, null=True)
-    Rounds = models.CharField('Số đo 3 vòng', max_length=100,blank=True, null=True)
-    Service = models.TextField('Dịch vụ',blank=True, null=True)
-    Segment = models.CharField('Phân khúc', max_length=50,blank=True, null=True)
-    Content = models.TextField('Mô tả',blank=True, null=True)
-    Price_call_in = models.TextField('Giá gọi đến',blank=True, null=True)
-    Price_call_out = models.TextField('Giá gọi ra',blank=True, null=True)
-    Order = models.IntegerField('Số thứ tự',blank=True, null=True)
-    Belong_User = models.ForeignKey(User, on_delete=models.CASCADE, related_name='list_xy',blank=True, null=True)
-    Belong_Region = models.ForeignKey(Region, on_delete=models.SET_NULL, related_name='list_XY_region',blank=True, null=True)
-    Belong_Nation = models.ForeignKey(Nation, on_delete=models.SET_NULL, related_name='list_XY_nation',blank=True, null=True)
+    Price_one = models.IntegerField('Giá 1 lần', max_length=100,blank=True, null=True,default=0)
+    Price_month = models.IntegerField('Giá 30 ngày', max_length=100,blank=True, null=True,default=0)
+    Keyword_day = models.IntegerField('Số từ khoá 1 ngày', max_length=100,blank=True, null=True,default=0)
+    Order = models.IntegerField('Thứ tự', max_length=50,blank=True, null=True)
     Creation_time = models.DateTimeField('Thời gian tạo',auto_now_add=True)
     Update_time = models.DateTimeField('Thời gian cập nhật',auto_now=True)
 
-class Photo(models.Model):
-    class Meta:
-        ordering = ["id"]
-        verbose_name_plural = "Ảnh sản phẩm"
-    
-    Avatar = models.ImageField(upload_to='PRODUCT',null=True,blank=True)
-    Belong_XY = models.ForeignKey(XY, on_delete=models.CASCADE, related_name='list_photo',blank=True, null=True)
-    Creation_time = models.DateTimeField('Thời gian tạo',auto_now_add=True)
-    Update_time = models.DateTimeField('Thời gian cập nhật',auto_now=True) 
 
-class Video(models.Model):
-    class Meta:
-        ordering = ["id"]
-        verbose_name_plural = "Video nhân viên"
+# class Photo(models.Model):
+#     class Meta:
+#         ordering = ["id"]
+#         verbose_name_plural = "Ảnh sản phẩm"
     
-    Video = models.FileField(upload_to='VIDEOS', null=True, blank=True)
-    Belong_XY = models.ForeignKey(XY, on_delete=models.CASCADE, related_name='list_video', blank=True, null=True)
-    Creation_time = models.DateTimeField('Thời gian tạo', auto_now_add=True)
-    Update_time = models.DateTimeField('Thời gian cập nhật', auto_now=True)
+#     Avatar = models.ImageField(upload_to='PRODUCT',null=True,blank=True)
+#     Belong_XY = models.ForeignKey(XY, on_delete=models.CASCADE, related_name='list_photo',blank=True, null=True)
+#     Creation_time = models.DateTimeField('Thời gian tạo',auto_now_add=True)
+#     Update_time = models.DateTimeField('Thời gian cập nhật',auto_now=True) 
+
+# class Video(models.Model):
+#     class Meta:
+#         ordering = ["id"]
+#         verbose_name_plural = "Video nhân viên"
+    
+#     Video = models.FileField(upload_to='VIDEOS', null=True, blank=True)
+#     Belong_XY = models.ForeignKey(XY, on_delete=models.CASCADE, related_name='list_video', blank=True, null=True)
+#     Creation_time = models.DateTimeField('Thời gian tạo', auto_now_add=True)
+#     Update_time = models.DateTimeField('Thời gian cập nhật', auto_now=True)
 
 
 # class Website(models.Model):

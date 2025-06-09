@@ -457,7 +457,7 @@ Thực hiện hướng dẫn sau trên dòng lệnh trên máy để đảm bả
 sudo ln -s /snap/bin/certbot /usr/bin/certbot|||
 Chạy lệnh này để nhận chứng chỉ và để Certbot tự động chỉnh sửa cấu hình Nginx của bạn để phục vụ nó, bật quyền truy cập HTTPS chỉ trong một bước.
 
-sudo certbot --nginx||
+sudo certbot --nginx|||
 Khi được nhắc, hãy nhập giá trị mong muốn. Điều này sẽ tự động tạo chứng chỉ SSL cho tên miền trỏ.
 
 Bây giờ khởi động lại máy chủ.

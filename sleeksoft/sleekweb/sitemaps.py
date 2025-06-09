@@ -9,15 +9,6 @@ from .views.client.login_client import *
 from .views.client.reset_password_client  import *
 from .views.client.register_client import *
 from .views.client.home_client import *
-from .views.client.detail_client import *
-from .views.client.filter_client import *
-from .views.client.contact_client import *
-
-from .views.admin.login_admin import *
-from .views.admin.product_admin import *
-from .views.admin.region_admin import *
-from .views.admin.user_admin import *
-from .views.admin.setting_admin import *
 
 protocol = 'https'
 

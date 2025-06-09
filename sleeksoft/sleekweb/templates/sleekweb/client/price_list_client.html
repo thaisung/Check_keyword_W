@@ -19,13 +19,23 @@
                     <span class="text-center w-[50%] py-2 overflow-hidden font-bold">Giá</span>
                 </div>
                 <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="text-center w-[50%] py-2 overflow-hidden">Thanh toán theo lần</span>
-                    <span class="text-center w-[50%] py-2 overflow-hidden">100đ / 1 lần</span>
+                    <div class="flex flex-col lg:flex-row items-center w-[50%] gap-2 justify-center p-3">
+                      <span class="text-center py-2 overflow-hidden">Thanh toán theo lần</span>
+                      {% if request.user.is_superuser %}
+                      <button class="open_form_price_one px-3 py-2 rounded-full bg-stone-900 text-stone-50 font-bold text-[15px]">Chỉnh giá</button>
+                      {% endif %}
+                    </div>
+                    <span class="format_number text-center w-[50%] py-2 overflow-hidden">{{Price_one|default:'0'}}đ / 1 lần</span>
                 </div>
                 <div class="flex w-full divide-x-[1px] divide-stone-950">
-                    <span class="flex justify-center items-center w-[50%] py-2 overflow-hidden">Đăng ký theo ngày</span>
                     <div class="flex flex-col lg:flex-row items-center w-[50%] gap-2 justify-center p-3">
-                      <span class="text-center  py-2 overflow-hidden"> 50.000đ / 30 ngày</span>
+                      <span class="flex justify-center items-center  py-2 overflow-hidden">Đăng ký theo ngày</span>
+                      {% if request.user.is_superuser %}
+                      <button class="open_form_price_month px-3 py-2 rounded-full bg-stone-900 text-stone-50 font-bold text-[15px]">Chỉnh giá</button>
+                      {% endif %}
+                    </div>
+                    <div class="flex flex-col lg:flex-row items-center w-[50%] gap-2 justify-center p-3">
+                      <span class="format_number text-center  py-2 overflow-hidden"> {{Price_month|default:'0'}}đ / 30 ngày</span>
                       <button class="px-3 py-2 rounded-full bg-stone-900 text-stone-50 font-bold text-[15px]">Đăng ký</button>
                     </div>
                 </div>
@@ -33,6 +43,60 @@
         </div>
     </div>
 </main>
+<div class="form_price_one fixed inset-0 flex justify-center items-center bg-stone-950 bg-opacity-30 px-[15px] lg:px-[0px]" style="display: none;">
+    <form action="{% url 'price_list_client' %}" method="post" class=" flex flex-col gap-3 items-center justify-center bg-stone-50 rounded-lg text-stone-950 w-[500px] p-[20px]">
+        <span class="labe_user font-bold">
+            Chỉnh giá cho 1 lần
+        </span>
+        {% csrf_token %}
+        <input placeholder="" type="number" name="Price_one" value="{{Price_one}}" class="rounded-lg w-[300px] text-center" />
+        <div class="flex items-center gap-2">
+            <button class="bg-stone-950 rounded-lg font-bold text-stone-50 px-3 p-2">Đổi giá</button>
+            <span class="close_form_price_one bg-stone-600 rounded-lg font-bold text-stone-50 px-3 p-2 cursor-pointer">Huỷ</span>
+        </div>
+    </form>
+</div>
+<div class="form_price_month fixed inset-0 flex justify-center items-center bg-stone-950 bg-opacity-30 px-[15px] lg:px-[0px]" style="display: none;">
+    <form action="{% url 'price_list_client' %}" method="post" class=" flex flex-col gap-3 items-center justify-center bg-stone-50 rounded-lg text-stone-950 w-[500px] p-[20px]">
+        <span class="labe_user font-bold">
+            Chỉnh giá cho 30 ngày
+        </span>
+        {% csrf_token %}
+        <input type="number" name="Price_month" value="{{Price_month}}" placeholder="" class="rounded-lg w-[300px] text-center" />
+        <div class="flex items-center gap-2">
+            <button class="bg-stone-950 rounded-lg font-bold text-stone-50 px-3 p-2">Đổi giá</button>
+            <span class="close_form_price_month bg-stone-600 rounded-lg font-bold text-stone-50 px-3 p-2 cursor-pointer">Huỷ</span>
+        </div>
+    </form>
+</div>
+<script>
+  $(document).ready(function () {
+    // Mở form
+    $('.open_form_price_one').on('click', function () {
+      $('.form_price_one').fadeIn();
+    });
+
+    // Đóng form
+    $('.close_form_price_one').on('click', function (e) {
+      e.preventDefault(); // tránh việc submit nếu là <button> trong form
+      $('.form_price_one').fadeOut();
+    });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    // Mở form
+    $('.open_form_price_month').on('click', function () {
+      $('.form_price_month').fadeIn();
+    });
+
+    // Đóng form
+    $('.close_form_price_month').on('click', function (e) {
+      e.preventDefault(); // tránh việc submit nếu là <button> trong form
+      $('.form_price_month').fadeOut();
+    });
+  });
+</script>
 <style>
     .pagination ul {
       width: auto;

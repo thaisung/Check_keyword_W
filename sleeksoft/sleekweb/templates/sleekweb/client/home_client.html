@@ -13,15 +13,16 @@
     <div class="bg-stone-100 flex w-full">
       <div class="w-full lg:w-[1200px] flex flex-col justify-center items-center grow gap-3  p-[20px]">
         <h1 class="font-bold text-[20px] lg:text-[23px]">Kiểm tra thứ hạng từ khoá trên google</h1>
-        <form class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3">
-          <select class="w-full  rounded-lg bg-stone-50 text-stone-950 border-none shadow-md">
+        <form action="{% url 'home_client' %}" method="post" class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3">
+          {% csrf_token %}
+          <select name="Device" class="w-full  rounded-lg bg-stone-50 text-stone-950 border-none shadow-md" required>
               <option disabled selected>--Thiết bị--</option>
-              <option>Desktop</option>
-              <option>Mobile</option>
+              <option value="Desktop">Desktop</option>
+              <option value="Mobile">Mobile</option>
           </select>
-          <input placeholder="Nhập tên miền" class="w-full  rounded-lg bg-stone-50 text-stone-950 border-none shadow-md" />
-          <textarea placeholder="Nhập danh sách từ khoá (Mỗi từ 1 dòng)" class="w-full  rounded-lg bg-stone-50 text-stone-950 border-none shadow-md h-[300px]"></textarea>
-          <button class="bg-stone-950 font-bold px-4 py-2 rounded-full text-stone-50">Kiểm tra</button>
+          <input name="Domain" placeholder="Nhập tên miền" class="w-full  rounded-lg bg-stone-50 text-stone-950 border-none shadow-md" required/>
+          <textarea name="Content_keyword" placeholder="Nhập danh sách từ khoá (Mỗi từ 1 dòng)" class="w-full  rounded-lg bg-stone-50 text-stone-950 border-none shadow-md h-[300px]" required></textarea>
+          <button type="submit" class="bg-stone-950 font-bold px-4 py-2 rounded-full text-stone-50">Kiểm tra</button>
         </form>
       </div>
     </div>
@@ -30,7 +31,7 @@
         <div class="w-[50%] flex flex-col gap-2">
             <div class="flex flex-col lg:flex-row lg:items-center gap-1">
               <span>Domain: </span>
-              <span class="font-bold">searchgg.com</span>
+              <span class="font-bold">{{Domain|default:''}}</span>
             </div>
             <div class="flex flex-col lg:flex-row lg:items-center gap-1">
               <span>Ngôn ngữ: </span>
@@ -42,22 +43,28 @@
             </div>
             <div class="flex flex-col lg:flex-row lg:items-center gap-1">
               <span>Thiết bị: </span>
-              <span class="font-bold">Desktop</span>
+              <span class="font-bold">{{Device|default:''}}</span>
             </div>
         </div>
         <div class="h-full w-[2px] bg-stone-300"></div>
         <div class="w-[50%] flex flex-col gap-2">
             <div class="flex flex-col lg:flex-row lg:items-center gap-1">
               <span>Số từ khoá: </span>
-              <span class="font-bold">1</span>
+              <span class="font-bold format_number">{{data_check_rank_keyword|length|default:'0'}}</span>
             </div>
-            <div class="flex flex-col lg:flex-row lg:items-center gap-1">
+            <div class="flex flex-col lg:flex-row lg:items-center items-start  gap-1">
               <span>Credit mỗi ngày: </span>
-              <span class="font-bold">100</span>
+              <div class="flex font-bold format_number ">
+                <div class="text-yellow-500">{{request.user.obj_Keyword.Count_keyword}}</div>
+                <div>/{{Keyword_day|default:'0'}}</div>
+              </div>
+              {% if request.user.is_superuser %}
+              <button class="open_form_keyword_day flex items-center justify-start px-3 py-2 rounded-full bg-stone-900 text-stone-50 font-bold text-[15px] lg:ml-1">Chỉnh số từ</button>
+              {% endif %}
             </div>
             <div class="flex flex-col lg:flex-row lg:items-center gap-1">
               <span>Credit 30 ngày: </span>
-              <span class="font-bold">3.000</span>
+              <span class="font-bold format_number">{{Keyword_month|default:'0'}}</span>
             </div>
         </div>
       </div>
@@ -91,22 +98,43 @@
               <span class="text-center w-[50%] py-2 overflow-hidden font-bold">Từ khoá</span>
               <span class="text-center w-[50%] py-2 overflow-hidden font-bold">Thứ hạng</span>
           </div>
+          {% for i in data_check_rank_keyword %}
           <div class="flex w-full divide-x-[1px] divide-stone-500 ">
-              <span class="text-center w-[50%] py-2 overflow-hidden">Thái</span>
-              <span class="text-center w-[50%] py-2 overflow-hidden">20</span>
+              <span class="text-center w-[50%] py-2 overflow-hidden">{{i.keyword}}</span>
+              <span class="text-center w-[50%] py-2 overflow-hidden">{{i.rank}}</span>
           </div>
-          <div class="flex w-full divide-x-[1px] divide-stone-500 ">
-              <span class="text-center w-[50%] py-2 overflow-hidden">Con mèo</span>
-              <span class="text-center w-[50%] py-2 overflow-hidden">100</span>
-          </div>
-          <div class="flex w-full divide-x-[1px] divide-stone-500 ">
-              <span class="text-center w-[50%] py-2 overflow-hidden">Con heo</span>
-              <span class="text-center w-[50%] py-2 overflow-hidden">150</span>
-          </div>
+          {% endfor %}
       </div>
       </div>
     </div>
 </main>
+<div class="form_keyword_day fixed inset-0 flex justify-center items-center bg-stone-950 bg-opacity-30 px-[15px] lg:px-[0px]" style="display: none;">
+    <form action="{% url 'price_list_client' %}" method="post" class=" flex flex-col gap-3 items-center justify-center bg-stone-50 rounded-lg text-stone-950 w-[500px] p-[20px]">
+        <span class="labe_user font-bold">
+            Chỉnh số từ khoá cho 1 ngày
+        </span>
+        {% csrf_token %}
+        <input placeholder="" type="number" name="Keyword_day" value="{{Keyword_day}}" class="rounded-lg w-[300px] text-center" />
+        <div class="flex items-center gap-2">
+            <button class="bg-stone-950 rounded-lg font-bold text-stone-50 px-3 p-2">Đổi</button>
+            <span class="close_form_keyword_day bg-stone-600 rounded-lg font-bold text-stone-50 px-3 p-2 cursor-pointer">Huỷ</span>
+        </div>
+    </form>
+</div>
+<script>
+  $(document).ready(function () {
+    // Mở form
+    $('.open_form_keyword_day').on('click', function () {
+      $('.form_keyword_day').fadeIn();
+    });
+
+    // Đóng form
+    $('.close_form_keyword_day').on('click', function (e) {
+      e.preventDefault(); // tránh việc submit nếu là <button> trong form
+      $('.form_keyword_day').fadeOut();
+    });
+  });
+</script>
 <style>
     .pagination ul {
       width: auto;

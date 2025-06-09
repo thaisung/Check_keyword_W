@@ -74,5 +74,61 @@ def login_client(request):
         lc = request.COOKIES.get('language') or 'en'
         context['domain'] = settings.DOMAIN
         print('context:',context)
-        return render(request, 'sleekweb/client/login_client.html', context, status=200)
+        if request.user.is_authenticated:
+            return redirect('product_admin')
+        else:
+            return render(request, 'sleekweb/client/login_client.html', context, status=200)
+    elif request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        if username is None or password is None:
+            return JsonResponse({'success': False, 'message': 'Hành động đăng nhập của bạn không được chấp nhận. Vui lòng vào trang WEBSITE chính thức để đăng nhập.'},json_dumps_params={'ensure_ascii': False})
+        elif not username or not password:
+            return JsonResponse({'success': False, 'message': 'Điền đầy đủ thông tin trước khi đăng nhập.'},json_dumps_params={'ensure_ascii': False})
+        else:
+            if User.objects.filter(username=username).exists():
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    if user.is_active:
+                        login(request, user)
+                        return JsonResponse({'success': True, 'redirect_url': reverse('home_client')},json_dumps_params={'ensure_ascii': False})
+                    else:
+                        return JsonResponse({'success': False, 'message': 'Tài khoản của bạn đã bị vô hiệu hóa.'},json_dumps_params={'ensure_ascii': False})
+                else:
+                    return JsonResponse({'success': False, 'message': 'Mật khẩu đăng nhập sai.'},json_dumps_params={'ensure_ascii': False})
+            else:
+                return JsonResponse({'success': False, 'message': 'Tên tài khoản đăng nhập không đúng.'},json_dumps_params={'ensure_ascii': False})
+    
+def logout_client(request):
+    logout(request)
+    return redirect('login_client')
+
+def change_password_client(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        new_password = request.POST.get('new_password')
+
+        try:
+            user = User.objects.get(username=username)
+
+            # Chỉ cho phép đổi mật khẩu nếu người đang đăng nhập là chính họ
+            if request.user != user:
+                messages.error(request, 'Không được phép đổi mật khẩu người khác.')
+                return redirect('profile_client')
+                # return JsonResponse({'success': False, 'message': 'Không được phép đổi mật khẩu người khác.'},json_dumps_params={'ensure_ascii': False})
+
+            user.password = make_password(new_password)
+            user.save()
+
+            # Đăng nhập lại để duy trì session
+            login(request, user)
+            messages.success(request, 'Đổi mật khẩu thành công.')
+            return redirect('profile_client')
+            # return JsonResponse({'success': True, 'message': 'Đổi mật khẩu thành công.', 'redirect_url': reverse('profile_client')},json_dumps_params={'ensure_ascii': False})
+        except User.DoesNotExist:
+            messages.error(request, 'Người dùng không tồn tại.')
+            return redirect('profile_client')
+            # return JsonResponse({'success': False, 'message': 'Người dùng không tồn tại.'},json_dumps_params={'ensure_ascii': False})
+
+        
     

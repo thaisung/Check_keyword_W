@@ -69,6 +69,8 @@ from django.core.mail import send_mail,EmailMessage
 
     
 def profile_client(request):
+    if not request.user.is_authenticated:
+        return redirect('login_client')
     if request.method == 'GET':
         context = {}
         lc = request.COOKIES.get('language') or 'en'

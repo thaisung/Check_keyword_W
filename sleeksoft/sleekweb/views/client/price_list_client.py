@@ -65,6 +65,8 @@ from django.core.mail import send_mail
 from django.forms.models import model_to_dict
 from django.core.mail import send_mail,EmailMessage
 
+from django.urls import resolve
+
 
 
     
@@ -74,5 +76,38 @@ def price_list_client(request):
         lc = request.COOKIES.get('language') or 'en'
         context['domain'] = settings.DOMAIN
         print('context:',context)
+        try:
+            obj = Price_list.objects.get(Order=1)
+            context['Price_one'] = obj.Price_one
+            context['Price_month'] = obj.Price_month
+            context['Keyword_day'] = obj.Keyword_day
+        except:
+            pass
         return render(request, 'sleekweb/client/price_list_client.html', context, status=200)
-    
+    if request.method == 'POST':
+        if not request.user.is_authenticated or not request.user.is_superuser:
+            messages.error(request, 'Chưa được cấp quyền.')
+            return redirect('login_client')
+        Price_one = request.POST.get('Price_one')
+        Price_month = request.POST.get('Price_month')
+        Keyword_day = request.POST.get('Keyword_day')
+        try:
+            obj = Price_list.objects.get(Order=1)
+            if Price_one:
+                obj.Price_one = Price_one
+            if Price_month:
+                obj.Price_month = Price_month
+            if Keyword_day:
+                obj.Keyword_day = Keyword_day
+            obj.save()
+        except:
+            if Price_one:
+                obj = Price_list.objects.create(Price_one=Price_one,Order=1)
+            if Price_month:
+                obj = Price_list.objects.create(Price_month=Price_month,Order=1)
+            if Keyword_day:
+                obj = Price_list.objects.create(Keyword_day=Keyword_day,Order=1)
+        if Keyword_day:
+            return redirect('home_client')
+        else:
+            return redirect('price_list_client')

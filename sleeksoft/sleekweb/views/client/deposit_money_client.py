@@ -65,8 +65,44 @@ from django.core.mail import send_mail
 from django.forms.models import model_to_dict
 from django.core.mail import send_mail,EmailMessage
 
+from pathlib import Path
+import os
+import environ
+BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env()
+# environ.Env.read_env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
+@csrf_exempt  # Tắt CSRF vì request đến từ bên ngoài (my.sepay.vn)
+def payment_callback(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            print('data:',data)
+            print('data.content:',data['content'])
+            print('data.transferAmount:',data['transferAmount'])
+            try:
+                obj_Transaction_history = Transaction_history.objects.get(Code=data['content'])
+                
+                user = obj_Transaction_history.Belong_User
+                if user.Money:
+                    user.Money = int(user.Money) + int(data['transferAmount'])
+                else:
+                    user.Money = int(data['transferAmount'])
+                user.save()
+
+                obj_Transaction_history.Status = 1
+                obj_Transaction_history.save()   
+            except:
+                pass
+            # Trả về thành công
+            return JsonResponse({'success': True}, status=200)
+
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    else:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
     
 def deposit_money_client(request):
     if request.method == 'GET':
@@ -75,4 +111,36 @@ def deposit_money_client(request):
         context['domain'] = settings.DOMAIN
         print('context:',context)
         return render(request, 'sleekweb/client/deposit_money_client.html', context, status=200)
-    
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            messages.error(request, 'Đăng nhập tài khoản trước khi nạp tiền.')
+            return redirect('login_client')
+        username = request.user
+        money = request.POST.get('money')
+        print('money:',money)
+        code = request.POST.get('Code')
+        if int(money) < int(env('MONEY')):
+            messages.error(request, f"Nạp tối thiểu ({int(env('MONEY'))}đ).")
+            return redirect('deposit_money_client')
+        try:            
+            obj_Transaction_history = Transaction_history.objects.create(
+                Code = code,
+                Content = 'Nạp tiền',
+                Belong_User = request.user,
+                Value = f'+ {money}'
+                )
+            for i in range(0,60):
+                dk = Transaction_history.objects.get(Code=obj_Transaction_history.Code)
+                if dk.Status == 1:
+                    messages.success(request, f'Nạp tiền thành công ({money} đ) cho tài khoản ({username}).')
+                    break
+                time.sleep(3)
+            if Transaction_history.objects.get(Code=obj_Transaction_history.Code).Status == 2:
+                obj_Transaction_history.Status = 0
+                obj_Transaction_history.save()
+                messages.error(request, f'Nạp tiền không thành công cho tài khoản ({username}).')
+            return redirect('deposit_money_client')
+        except User.DoesNotExist:
+            messages.error(request, 'Người dùng không tồn tại.')
+            return redirect('deposit_money_client')
+
