@@ -83,7 +83,7 @@ def payment_callback(request):
             print('data.content:',data['content'])
             print('data.transferAmount:',data['transferAmount'])
             try:
-                obj_Transaction_history = Transaction_history.objects.get(Code=data['content'])
+                obj_Transaction_history = Transaction_history.objects.get(Code=data['content'].split()[0])
                 
                 user = obj_Transaction_history.Belong_User
                 if user.Money:
