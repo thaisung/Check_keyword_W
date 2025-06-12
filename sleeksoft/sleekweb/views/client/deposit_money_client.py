@@ -95,7 +95,7 @@ def payment_callback(request):
                 obj_Transaction_history.Status = 1
                 obj_Transaction_history.save()   
             except:
-                pass
+                return JsonResponse({'success': False}, status=400)
             # Trả về thành công
             return JsonResponse({'success': True}, status=200)
 
