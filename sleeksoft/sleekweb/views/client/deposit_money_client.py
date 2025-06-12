@@ -130,7 +130,7 @@ def deposit_money_client(request):
                 Belong_User = request.user,
                 Value = f'+ {money}'
                 )
-            for i in range(0,60):
+            for i in range(0,20):
                 dk = Transaction_history.objects.get(Code=obj_Transaction_history.Code)
                 if dk.Status == 1:
                     messages.success(request, f'Nạp tiền thành công ({money} đ) cho tài khoản ({username}).')
