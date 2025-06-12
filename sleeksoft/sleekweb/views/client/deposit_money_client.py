@@ -141,7 +141,8 @@ def deposit_money_client(request):
                 obj_Transaction_history.save()
                 messages.error(request, f'Nạp tiền không thành công cho tài khoản ({username}).')
             return redirect('deposit_money_client')
-        except User.DoesNotExist:
-            messages.error(request, 'Người dùng không tồn tại.')
+        except Exception as e:
+            print('LỖI:', e)
+            messages.error(request, f'Đã xảy ra lỗi: {str(e)}')
             return redirect('deposit_money_client')
 
