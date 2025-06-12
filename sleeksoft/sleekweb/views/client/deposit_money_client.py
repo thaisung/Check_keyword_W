@@ -81,6 +81,7 @@ def payment_callback(request):
             data = json.loads(request.body)
             print('data:',data)
             print('data.content:',data['content'])
+            print('code:',data['content'].split()[0])
             print('data.transferAmount:',data['transferAmount'])
             try:
                 obj_Transaction_history = Transaction_history.objects.get(Code=data['content'].split()[0])
