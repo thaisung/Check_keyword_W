@@ -94,16 +94,30 @@ def payment_callback(request):
                 user.save()
 
                 obj_Transaction_history.Status = 1
-                obj_Transaction_history.save()   
+                obj_Transaction_history.save()
+                return JsonResponse({'success': True}, status=200)
             except:
                 return JsonResponse({'success': False}, status=400)
-            # Trả về thành công
-            return JsonResponse({'success': True}, status=200)
-
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
     else:
         return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
+def wait_for_transaction(code, timeout=60, interval=3):
+    """
+    Chờ cho đến khi giao dịch có Status != 0, hoặc hết thời gian
+    """
+    waited = 0
+    while waited < timeout:
+        try:
+            transaction = Transaction_history.objects.get(Code=code)
+            if transaction.Status != 2:
+                return transaction.Status
+        except Transaction_history.DoesNotExist:
+            return 0
+        time.sleep(interval)
+        waited += interval
+    return 0  # timeout → coi là thất bại
     
 def deposit_money_client(request):
     if request.method == 'GET':
@@ -130,16 +144,17 @@ def deposit_money_client(request):
                 Belong_User = request.user,
                 Value = f'+ {money}'
                 )
-            for i in range(0,20):
-                dk = Transaction_history.objects.get(Code=obj_Transaction_history.Code)
-                if dk.Status == 1:
-                    messages.success(request, f'Nạp tiền thành công ({money} đ) cho tài khoản ({username}).')
-                    break
-                time.sleep(3)
-            if Transaction_history.objects.get(Code=obj_Transaction_history.Code).Status == 2:
+            
+            status = wait_for_transaction(obj_Transaction_history.Code, timeout=60, interval=3)
+            if status == 1:
+                messages.success(request, f'Nạp tiền thành công ({money} đ) cho tài khoản ({username}).')
+            elif status == 0:
+                messages.error(request, f'Nạp tiền thất bại cho tài khoản ({username}).')
+            else:
                 obj_Transaction_history.Status = 0
                 obj_Transaction_history.save()
-                messages.error(request, f'Nạp tiền không thành công cho tài khoản ({username}).')
+                messages.error(request, f'Nạp tiền thất bại cho tài khoản ({username}).')
+
             return redirect('deposit_money_client')
         except Exception as e:
             print('LỖI:', e)
