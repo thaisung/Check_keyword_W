@@ -61,8 +61,12 @@ urlpatterns = [
     path('deposit-money', deposit_money_client,name='deposit_money_client'),
     path('transaction-history', transaction_history_client,name='transaction_history_client'),
     path('price-list', price_list_client,name='price_list_client'),
+    path('user/change-time-30', user_change_time_user_30,name='user_change_time_user_30'),
     path('profile-client',profile_client,name='profile_client'),
     path('list-user',list_user_client,name='list_user_client'),
+    path('user/change-time/', user_change_time_user,name='user_change_time_user'),
+    path('user/reset-time/', user_reset_time_user,name='user_reset_time_user'),
+
     # path('account/login', login_client,name='login_client'),
     # path('admin/account/login', login_admin,name='login_admin'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps_dict}, name='sitemap'),

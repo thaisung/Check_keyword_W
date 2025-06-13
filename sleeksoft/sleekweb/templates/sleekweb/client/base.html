@@ -100,6 +100,9 @@
                     Quản trị
                 </span>
                 {% endif %}
+                {% if request.user.obj_Time_user.days_left %}
+                <span class="font-medium text-[10px]">Ngày còn lại : <span class="{% if request.user.obj_Time_user.days_left > 0 %}text-green-500{% else %}text-red-500{% endif %}">{{request.user.obj_Time_user.days_left}} ngày ( {{request.user.obj_Time_user.End_time|date:'d/m/Y'  }} Dừng )</span></span>
+                {% endif %}
                 <!-- <img alt="logo" class="w-[100px]" src="/upload/website/logo-call-girl.png" /> -->
             </a>
             <div class="flex items-center text-stone-950 lg:px-[20px]">

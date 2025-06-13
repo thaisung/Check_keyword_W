@@ -26,11 +26,11 @@
                 <a href="{% url 'logout_client' %}" class="font-bold cursor-pointer flex items-center justify-center gap-1 bg-stone-950 text-stone-50 rounded-lg py-2 w-full">Đăng xuất</a>
             </div>
             <div class="flex items-center justify-between w-full mt-2">
-                <a class="text-stone-950 font-bold cursor-pointer underline">Bảng giá</a>
-                <a class="text-stone-950 font-bold cursor-pointer underline">Nạp tiền</a>
-                <a class="text-stone-950 font-bold cursor-pointer underline">Lịch sử giao dịch</a>
+                <a href="{% url 'price_list_client' %}" class="text-stone-950 font-bold cursor-pointer underline">Bảng giá</a>
+                <a href="{% url 'deposit_money_client' %}" class="text-stone-950 font-bold cursor-pointer underline">Nạp tiền</a>
+                <a href="{% url 'transaction_history_client' %}" class="text-stone-950 font-bold cursor-pointer underline">Lịch sử giao dịch</a>
             </div>
-        </div>
+        </div> 
     </div>
 </main>
 <div class="form_change_password fixed inset-0 flex justify-center items-center bg-stone-950 bg-opacity-30 px-[15px] lg:px-[0px]" style="display: none;">

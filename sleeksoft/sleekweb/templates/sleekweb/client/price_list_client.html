@@ -36,7 +36,10 @@
                     </div>
                     <div class="flex flex-col lg:flex-row items-center w-[50%] gap-2 justify-center p-3">
                       <span class="format_number text-center  py-2 overflow-hidden"> {{Price_month|default:'0'}}đ / 30 ngày</span>
-                      <button class="px-3 py-2 rounded-full bg-stone-900 text-stone-50 font-bold text-[15px]">Đăng ký</button>
+                      <form action="{% url 'user_change_time_user_30' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="px-3 py-2 rounded-full bg-stone-900 text-stone-50 font-bold text-[15px]">Đăng ký</button>
+                      </form>
                     </div>
                 </div>
             </div>
@@ -69,6 +72,21 @@
         </div>
     </form>
 </div>
+{% if messages %}
+    <script>
+        window.onload = function () {
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    alert("✅ {{ message }}");
+                {% elif message.tags == 'error' %}
+                    alert("❌ {{ message }}");
+                {% else %}
+                    alert("ℹ️ {{ message }}");
+                {% endif %}
+            {% endfor %}
+        }
+    </script>
+{% endif %}
 <script>
   $(document).ready(function () {
     // Mở form
