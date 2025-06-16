@@ -54,7 +54,6 @@ from django.contrib.sitemaps.views import sitemap
 
 sitemaps_dict = {
     'static': StaticViewSitemap,
-    'product': detail_product_Sitemap,
 }
 
 urlpatterns = [

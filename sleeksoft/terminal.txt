@@ -1,3 +1,5 @@
+# xem lỗi 500 : sudo journalctl -u gunicorn -n 100 --no-pager
+
 python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
 
 py -0p
