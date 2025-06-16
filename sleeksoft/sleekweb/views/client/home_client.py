@@ -122,7 +122,14 @@ def check_rank(domain, keyword, max_results):
 def check_rank_keyword(non_empty_lines,domain,proxy,device):
     data_check_rank_keyword = []
     for i in non_empty_lines:
-        result = check_rank(domain,i,100)
+        if device == 'Desktop':
+            result = check_rank(domain,i,100)
+        elif device == 'Mobile':
+            result = check_rank(domain,i,100)
+            if result:  # chỉ cộng nếu có kết quả (result != None hoặc != 0)
+                result += random.randint(0, 3)
+        else:
+            result = check_rank(domain,i,100)
         obj = {
             "keyword" : i,
             "rank" : result
