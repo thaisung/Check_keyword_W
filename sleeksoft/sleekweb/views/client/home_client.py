@@ -110,84 +110,70 @@ def check_count_keyword(request,count_keyword):
     # Tiếp tục xử lý
     return True
 
+from googlesearch import search
+
+def check_rank(domain, keyword, max_results):
+    proxy = ''
+    for index, url in enumerate(search(keyword, num_results=max_results)):
+        if domain in url:
+            return index + 1
+    return None
+
 def check_rank_keyword(non_empty_lines,domain,proxy,device):
     data_check_rank_keyword = []
     for i in non_empty_lines:
-        result = check_keyword_rank(i, domain, proxy=proxy,device=device)
+        result = check_rank(domain,i,100)
         obj = {
             "keyword" : i,
-            "rank" : result['rank']
+            "rank" : result
         }
         data_check_rank_keyword.append(obj)
     return data_check_rank_keyword
 
-def check_keyword_rank(keyword, domain, proxy=None, device='desktop'):
-    ua = UserAgent()
-
-    results = []
-
-    for page in range(10):  # 10 pages => 100 results
-        user_agent = ua.chrome if device == 'Desktop' else ua.android
-        headers = {
-            "User-Agent": user_agent,
-            "Accept-Language": "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7",
-            "Referer": "https://www.google.com/",
-        }
-
-        start = page * 10
-        url = f"https://www.google.com.vn/search?q={requests.utils.quote(keyword)}&start={start}&hl=vi"
-
-        try:
-            response = requests.get(
-                url,
-                headers=headers,
-                proxies={"http": proxy, "https": proxy} if proxy else None,
-                timeout=10
-            )
-            if response.status_code != 200:
-                print(f"❌ Lỗi HTTP {response.status_code} ở trang {page + 1}")
-                break
-
-            soup = BeautifulSoup(response.text, 'html.parser')
-            blocks = soup.select('div.g')
-
-            if not blocks:
-                print("🔍 Không tìm thấy kết quả.")
-                break
-
-            for idx, block in enumerate(blocks):
-                a_tag = block.select_one('a[href]')
-                if not a_tag:
-                    continue
-                link = a_tag['href']
-                rank = start + idx + 1
-                results.append({'rank': rank, 'url': link})
-                if domain in link:
-                    return {
-                        'keyword': keyword,
-                        'domain': domain,
-                        'rank': rank,
-                        'url': link
-                    }
-
-            # Random delay
-            time.sleep(random.uniform(2, 4))
-
-        except Exception as e:
-            print("⚠️ Lỗi:", e)
-            break
-
-    return {
-        'keyword': keyword,
-        'domain': domain,
-        'rank': None,
-        'url': None,
-        'message': 'Không tìm thấy trong top 100'
+def rank_summary_list(data_check_rank_keyword):
+    result = {
+        "Top 3": 0,
+        "Top 10": 0,
+        "Top 30": 0,
+        "Top 100": 0,
+        "Out of Top 100": 0
     }
 
+    for item in data_check_rank_keyword:
+        rank = item["rank"]
+        if rank is None:
+            result["Out of Top 100"] += 1
+        elif rank <= 3:
+            result["Top 3"] += 1
+            result["Top 10"] += 1
+            result["Top 30"] += 1
+            result["Top 100"] += 1
+        elif rank <= 10:
+            result["Top 10"] += 1
+            result["Top 30"] += 1
+            result["Top 100"] += 1
+        elif rank <= 30:
+            result["Top 30"] += 1
+            result["Top 100"] += 1
+        elif rank <= 100:
+            result["Top 100"] += 1
+        else:
+            result["Out of Top 100"] += 1
+
+    # Chuyển thành list gồm 5 dict như yêu cầu
+    summary_list = [
+        {"name": "Top 3", "value": result["Top 3"]},
+        {"name": "Top 10", "value": result["Top 10"]},
+        {"name": "Top 30", "value": result["Top 30"]},
+        {"name": "Top 100", "value": result["Top 100"]},
+        # {"name": "Out of Top 100", "value": result["Out of Top 100"]}
+    ]
+    return summary_list
+
+
 def get_proxy():
-    pass
-    return 0
+    return ''
+
 def home_client(request):
     if request.method == 'GET':
         context = {}
@@ -214,6 +200,15 @@ def home_client(request):
         context['data_check_rank_keyword'] = request.session.pop('data_check_rank_keyword', None)
         context['Device'] = request.session.pop('Device', None)
         context['Domain'] = request.session.pop('Domain', None)
+        context['rank_summary_list'] = request.session.pop('rank_summary_list',
+                                                           [
+                {"name": "Top 3", "value": 0},
+                {"name": "Top 10", "value": 0},
+                {"name": "Top 30", "value": 0},
+                {"name": "Top 100", "value": 0},
+                # {"name": "Out of Top 100", "value": result["Out of Top 100"]}
+            ]
+                                                            )
         return render(request, 'sleekweb/client/home_client.html', context, status=200)
     if request.method == 'POST':
         if not request.user.is_authenticated:
@@ -223,9 +218,14 @@ def home_client(request):
         Device = request.POST.get('Device')
         Domain = request.POST.get('Domain')
         Content_keyword = request.POST.get('Content_keyword')
+
+        print('Domain:',Domain)
+        print('Content_keyword:',Content_keyword)
+
         # Tách các dòng, xoá khoảng trắng đầu/cuối, và loại bỏ dòng rỗng
         lines = Content_keyword.strip().splitlines()
         non_empty_lines = [line for line in lines if line.strip() != '']
+        print('non_empty_lines:',non_empty_lines)
         # Đếm số dòng có nội dung
         count_keyword = len(non_empty_lines)
 
@@ -240,13 +240,22 @@ def home_client(request):
         proxy = get_proxy()
         if Condition_check_count_keyword:
             if int(Condition_time_user) > 0:
-                data_check_rank_keyword = (non_empty_lines,Domain,proxy,Device)
+                data_check_rank_keyword = check_rank_keyword(non_empty_lines,Domain,proxy,Device)
+                Transaction_history.objects.create(
+                    Code='SerGoogle',
+                    Content='Tiềm kiếm thứ hạng',
+                    Belong_User=request.user,
+                    Status=1,
+                    Value = f"-0"
+                    )
             else:
                 try:
                     obj_Price_list = Price_list.objects.get(Order=1)
                 except:
                     obj_Price_list={}
-                data_check_rank_keyword = (non_empty_lines,Domain,proxy,Device)
+                if request.user.Money <  obj_Price_list.Price_one:
+                    messages.error(request, 'Số tiền không đủ để thực hiện tìm kiếm.')
+                data_check_rank_keyword = check_rank_keyword(non_empty_lines,Domain,proxy,Device)
                 Transaction_history.objects.create(
                     Code='SerGoogle',
                     Content='Tiềm kiếm thứ hạng',
@@ -254,7 +263,10 @@ def home_client(request):
                     Status=1,
                     Value = f"-{obj_Price_list.Price_one}"
                     )
+                request.user.Money = request.user.Money - obj_Price_list.Price_one
+                request.user.save()
         request.session['data_check_rank_keyword'] = data_check_rank_keyword
         request.session['Device'] = Device
         request.session['Domain'] = Domain
+        request.session['rank_summary_list'] = rank_summary_list(data_check_rank_keyword)
         return redirect('home_client')

@@ -90,30 +90,30 @@ def register_client(request):
             else:
                 obj_user = User.objects.create_user(username=username,email=email,password=password,is_staff=True)
                 Time_user.objects.create(Belong_User=obj_user)
-                try:
-                    day_number = 30
-                    user = obj_user
+                # try:
+                #     day_number = 30
+                #     user = obj_user
                     
-                    # Lấy hoặc tạo Time_user nếu chưa có
-                    time_user, created = Time_user.objects.get_or_create(Belong_User=user)
+                #     # Lấy hoặc tạo Time_user nếu chưa có
+                #     time_user, created = Time_user.objects.get_or_create(Belong_User=user)
 
-                    print('time_user.days_left:',time_user.days_left())
+                #     print('time_user.days_left:',time_user.days_left())
 
-                    if time_user.days_left() == 0:
-                        day_number = day_number + 1
+                #     if time_user.days_left() == 0:
+                #         day_number = day_number + 1
 
-                    print('day_number:',day_number)
+                #     print('day_number:',day_number)
                     
-                    # Nếu End_time < now (quá hạn) thì bắt đầu từ hiện tại
-                    now = timezone.now()
-                    current_end = time_user.End_time if time_user.End_time > now else now
+                #     # Nếu End_time < now (quá hạn) thì bắt đầu từ hiện tại
+                #     now = timezone.now()
+                #     current_end = time_user.End_time if time_user.End_time > now else now
                     
-                    # Cộng thêm ngày mới
-                    time_user.End_time = current_end + timedelta(days=day_number)
-                    time_user.save()
+                #     # Cộng thêm ngày mới
+                #     time_user.End_time = current_end + timedelta(days=day_number)
+                #     time_user.save()
 
-                except (User.DoesNotExist, ValueError):
-                    print('Invalid data')
+                # except (User.DoesNotExist, ValueError):
+                #     print('Invalid data')
             return JsonResponse({'success': True,'message': 'Đăng ký tài khoản thành công. Đăng nhập ngay !', 'redirect_url': reverse('login_client')},json_dumps_params={'ensure_ascii': False})
     else:
         return redirect('register_client')

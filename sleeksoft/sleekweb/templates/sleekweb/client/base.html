@@ -163,9 +163,9 @@
     <footer class=" flex justify-center items-center bg-stone-50 border-t-[1px] border-stone-200 text-stone-800">
         <div class="w-full lg:w-[1200px] text-[18px] lg:text-[25px] flex justify-between items-center gap-[15px]   p-3  font-bold">
             <div class="flex items-center gap-2 text-[16px] lg:text-[20px] font-medium">
-                <a class="whitespace-nowrap">Bảng giá</a>
+                <a href="{% url 'price_list_client' %}" class="whitespace-nowrap hover:underline">Bảng giá</a>
                 -
-                <a class="whitespace-nowrap">Nạp tiền</a>
+                <a href="{% url 'deposit_money_client' %}" class="whitespace-nowrap hover:underline">Nạp tiền</a>
             </div>
             <span>2025 © sergoogle.com</span>
         </div>
