@@ -127,7 +127,10 @@ def check_rank_keyword(non_empty_lines,domain,proxy,device):
         elif device == 'Mobile':
             result = check_rank(domain,i,100)
             if result:  # chỉ cộng nếu có kết quả (result != None hoặc != 0)
-                result += random.randint(0, 3)
+                if 0 <result <= 5:
+                    result += random.choice([1,2 ,3])
+                if result > 5:
+                    result += random.choice([-1,-2,-3,-4,1,2 ,3,4])
         else:
             result = check_rank(domain,i,100)
         obj = {
