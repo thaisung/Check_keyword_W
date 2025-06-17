@@ -126,11 +126,11 @@ def check_rank_keyword(non_empty_lines,domain,proxy,device):
             result = check_rank(domain,i,100)
         elif device == 'Mobile':
             result = check_rank(domain,i,100)
-            if result:  # chỉ cộng nếu có kết quả (result != None hoặc != 0)
-                if 0 <result <= 5:
-                    result += random.choice([1,2 ,3])
-                if result > 5:
-                    result += random.choice([-1,-2,-3,-4,1,2 ,3,4])
+            # if result:  # chỉ cộng nếu có kết quả (result != None hoặc != 0)
+            #     if 0 <result <= 5:
+            #         result += random.choice([1,2 ,3])
+            #     if result > 5:
+            #         result += random.choice([-1,-2,-3,-4,1,2 ,3,4])
         else:
             result = check_rank(domain,i,100)
         obj = {
@@ -263,8 +263,12 @@ def home_client(request):
                     obj_Price_list = Price_list.objects.get(Order=1)
                 except:
                     obj_Price_list={}
+                print('request.user.Money:',request.user.Money)
+                print('obj_Price_list.Price_one:',obj_Price_list.Price_one)
                 if request.user.Money <  obj_Price_list.Price_one:
+                    print('request.user.Money:','hjghgh')
                     messages.error(request, 'Số tiền không đủ để thực hiện tìm kiếm.')
+                    return redirect('home_client')
                 data_check_rank_keyword = check_rank_keyword(non_empty_lines,Domain,proxy,Device)
                 Transaction_history.objects.create(
                     Code='SerGoogle',

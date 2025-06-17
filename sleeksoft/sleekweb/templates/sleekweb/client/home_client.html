@@ -107,6 +107,21 @@
         </div>
     </form>
 </div>
+{% if messages %}
+  <script>
+      window.onload = function () {
+          {% for message in messages %}
+              {% if message.tags == 'success' %}
+                  alert("✅ {{ message }}");
+              {% elif message.tags == 'error' %}
+                  alert("❌ {{ message }}");
+              {% else %}
+                  alert("ℹ️ {{ message }}");
+              {% endif %}
+          {% endfor %}
+      }
+  </script>
+{% endif %}
 <script>
   $(document).ready(function () {
     // Mở form
