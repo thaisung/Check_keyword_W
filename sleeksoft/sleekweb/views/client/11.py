@@ -1,8 +1,7 @@
 from googlesearch import search
 
-proxy = ''
-
 def check_rank(domain, keyword, max_results=100):
+    proxy = ''
     for index, url in enumerate(search(keyword, num_results=max_results)):
         if domain in url:
             return index + 1
