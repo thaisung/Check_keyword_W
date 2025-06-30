@@ -13,7 +13,7 @@
     <div class="bg-stone-100 flex w-full">
       <div class="w-full lg:w-[1200px] flex flex-col justify-center items-center grow gap-3  p-[20px]">
         <h1 class="font-bold text-[20px] lg:text-[23px]">Kiểm tra thứ hạng từ khoá trên google</h1>
-        <form action="{% url 'home_client' %}" method="post" class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3">
+        <form id="rankForm" action="{% url 'home_client' %}" method="post" class="flex flex-col items-center justify-center w-full lg:w-[600px] gap-3">
           {% csrf_token %}
           <select name="Device" class="w-full  rounded-lg bg-stone-50 text-stone-950 border-none shadow-md" required>
               <option disabled selected>--Thiết bị--</option>
@@ -21,9 +21,22 @@
               <option value="Mobile">Mobile</option>
           </select>
           <input name="Domain" placeholder="Nhập tên miền" class="w-full  rounded-lg bg-stone-50 text-stone-950 border-none shadow-md" required/>
-          <textarea name="Content_keyword" placeholder="Nhập danh sách từ khoá (Mỗi từ 1 dòng)" class="w-full  rounded-lg bg-stone-50 text-stone-950 border-none shadow-md h-[300px]" required></textarea>
+          <div class="w-full relative flex justify-center items-center">
+            <textarea name="Content_keyword" placeholder="Nhập danh sách từ khoá (Mỗi từ 1 dòng)" class="w-full  rounded-lg bg-stone-50 text-stone-950 border-none shadow-md h-[300px]" required></textarea>
+            <!-- <div class="absolute inset-0 flex justify-center items-center bg-gray-900 bg-opacity-90"></div> -->
+            <div id="loaderBox" class="bg-loader absolute top-1/2 left-1/2 w-[200px] h-[200px] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center bg-stone-950 bg-opacity-20 rounded-full" style="display: none;">
+              <span class="loader"></span>
+            </div>
+          </div>
           <button type="submit" class="bg-stone-950 font-bold px-4 py-2 rounded-full text-stone-50">Kiểm tra</button>
         </form>
+        <script>
+        $(document).ready(function () {
+          $("#rankForm").on("submit", function () {
+            $("#loaderBox").css("display", "flex");
+          });
+        });
+        </script>
       </div>
     </div>
     <div class="bg-stone-200 flex w-full justify-center px-[20px] lg:px-[0px] py-[20px]">
@@ -136,6 +149,81 @@
     });
   });
 </script>
+<style>
+    .loader {
+        transform: rotateZ(45deg);
+        perspective: 1000px;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        color: #fff;
+      }
+        .loader:before,
+        .loader:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: inherit;
+          height: inherit;
+          border-radius: 50%;
+          transform: rotateX(70deg);
+          animation: 1s spin linear infinite;
+        }
+        .loader:after {
+          color: #0c0a09;
+          transform: rotateY(70deg);
+          animation-delay: .4s;
+        }
+
+      @keyframes rotate {
+        0% {
+          transform: translate(-50%, -50%) rotateZ(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotateZ(360deg);
+        }
+      }
+
+      @keyframes rotateccw {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(-360deg);
+        }
+      }
+
+      @keyframes spin {
+        0%,
+        100% {
+          box-shadow: .2em 0px 0 0px currentcolor;
+        }
+        12% {
+          box-shadow: .2em .2em 0 0 currentcolor;
+        }
+        25% {
+          box-shadow: 0 .2em 0 0px currentcolor;
+        }
+        37% {
+          box-shadow: -.2em .2em 0 0 currentcolor;
+        }
+        50% {
+          box-shadow: -.2em 0 0 0 currentcolor;
+        }
+        62% {
+          box-shadow: -.2em -.2em 0 0 currentcolor;
+        }
+        75% {
+          box-shadow: 0px -.2em 0 0 currentcolor;
+        }
+        87% {
+          box-shadow: .2em -.2em 0 0 currentcolor;
+        }
+      }
+   
+</style>
 <style>
     .pagination ul {
       width: auto;

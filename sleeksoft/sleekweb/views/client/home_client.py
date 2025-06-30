@@ -119,20 +119,47 @@ def check_rank(domain, keyword, max_results):
             return index + 1
     return None
 
-def check_rank_keyword(non_empty_lines,domain,proxy,device):
+from pathlib import Path
+import os
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+from serpapi import GoogleSearch
+import environ
+
+env = environ.Env()
+# environ.Env.read_env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+
+def get_rank_serpapi(keyword,device,domain):
+    params = {
+        "q": keyword,
+        "num": 100,
+        "api_key": env('SERPAPI_KEY'),
+        "engine": "google",
+        "hl": "vi",
+        "gl" : "vn",
+        "device": device
+    }
+
+    search = GoogleSearch(params)
+    results = search.get_dict()
+
+    if "organic_results" not in results:
+        print("Không có kết quả trả về.")
+        return 'Không xác định'
+
+    for idx, item in enumerate(results["organic_results"], start=1):
+        link = item.get("link", "")
+        if domain in link:
+            return idx
+
+    return 'Không xác định'
+
+def check_rank_keyword(non_empty_lines,device,domain):
     data_check_rank_keyword = []
     for i in non_empty_lines:
-        if device == 'Desktop':
-            result = check_rank(domain,i,100)
-        elif device == 'Mobile':
-            result = check_rank(domain,i,100)
-            # if result:  # chỉ cộng nếu có kết quả (result != None hoặc != 0)
-            #     if 0 <result <= 5:
-            #         result += random.choice([1,2 ,3])
-            #     if result > 5:
-            #         result += random.choice([-1,-2,-3,-4,1,2 ,3,4])
-        else:
-            result = check_rank(domain,i,100)
+        result = get_rank_serpapi(i,device,domain)
         obj = {
             "keyword" : i,
             "rank" : result
@@ -250,7 +277,7 @@ def home_client(request):
         proxy = get_proxy()
         if Condition_check_count_keyword:
             if int(Condition_time_user) > 0:
-                data_check_rank_keyword = check_rank_keyword(non_empty_lines,Domain,proxy,Device)
+                data_check_rank_keyword = check_rank_keyword(non_empty_lines,Device,Domain)
                 Transaction_history.objects.create(
                     Code='SerGoogle',
                     Content='Tiềm kiếm thứ hạng',
@@ -269,7 +296,7 @@ def home_client(request):
                     print('request.user.Money:','hjghgh')
                     messages.error(request, 'Số tiền không đủ để thực hiện tìm kiếm.')
                     return redirect('home_client')
-                data_check_rank_keyword = check_rank_keyword(non_empty_lines,Domain,proxy,Device)
+                data_check_rank_keyword = check_rank_keyword(non_empty_lines,Device,Domain)
                 Transaction_history.objects.create(
                     Code='SerGoogle',
                     Content='Tiềm kiếm thứ hạng',
