@@ -21,13 +21,17 @@
                 <span class="font-bold">Số tiền hiện có :</span>
                 <span class="format_number">{{request.user.Money|default:'0'}} đ</span>
             </div>
+            {% if request.user.is_superuser %}
             <div class="flex items-center justify-between w-full gap-2">
                 <span class="font-bold whitespace-nowrap">API key (serpapi.com) :</span>
                 <span class="overflow-x-auto bg-stone-300 py-1 px-2 w-full text-right">{{obj_key.Key|default:''}}</span>
             </div>
+            {% endif %}
             <div class="flex items-center justify-center gap-2 mt-2">
                 <a class="open_form_change_password font-bold cursor-pointer flex items-center justify-center gap-1 bg-stone-950 text-stone-50 rounded-lg py-2 w-full" data-username="{{request.user.username}}">Đổi mật khẩu</a>
+                {% if request.user.is_superuser %}
                 <a class="open_form_change_key font-bold cursor-pointer flex items-center justify-center gap-1 bg-stone-950 text-stone-50 rounded-lg py-2 w-full" data-username="{{request.user.username}}">Đổi key</a>
+                {% endif %}
                 <a href="{% url 'logout_client' %}" class="font-bold cursor-pointer flex items-center justify-center gap-1 bg-stone-950 text-stone-50 rounded-lg py-2 w-full">Đăng xuất</a>
             </div>
             <div class="flex items-center justify-between w-full mt-2">
