@@ -130,5 +130,17 @@ def change_password_client(request):
             return redirect('profile_client')
             # return JsonResponse({'success': False, 'message': 'Người dùng không tồn tại.'},json_dumps_params={'ensure_ascii': False})
 
-        
+def change_key_client(request):
+    if request.method == 'POST':
+        new_key = request.POST.get('new_key')
+        if request.user.is_authenticated and request.user.is_superuser:
+            obj_key = API_key.objects.get(Order=1)
+            obj_key.Key = new_key
+            obj_key.save()
+            messages.success(request, 'Đổi API key thành công.')
+        else:
+            messages.error(request, 'Tài khoản cảu bạn chưa được cấp quyền.')
+        return redirect('profile_client')
+            # return JsonResponse({'success': False, 'message': 'Người dùng không tồn tại.'},json_dumps_params={'ensure_ascii': False})
+
     

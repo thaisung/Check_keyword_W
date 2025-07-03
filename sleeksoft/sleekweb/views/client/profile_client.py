@@ -75,6 +75,10 @@ def profile_client(request):
         context = {}
         lc = request.COOKIES.get('language') or 'en'
         context['domain'] = settings.DOMAIN
+        try:
+            context['obj_key'] = API_key.objects.get(Order=1)
+        except:
+            context['obj_key'] = API_key.objects.create(Order=1)
         print('context:',context)
         return render(request, 'sleekweb/client/profile_client.html', context, status=200)
     

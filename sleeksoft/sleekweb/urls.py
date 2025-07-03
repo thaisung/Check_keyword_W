@@ -80,6 +80,7 @@ urlpatterns = [
     path('account/register', register_client,name='register_client'),
     path('account/logout', logout_client,name='logout_client'),
     path('account/change-password', change_password_client,name='change_password_client'),
+    path('account/change-key', change_key_client,name='change_key_client'),
 
     path('account/user-change-password', user_change_password_client,name='user_change_password_client'),
     path('account/user-deposit-money', user_deposit_money_client,name='user_deposit_money_client'),

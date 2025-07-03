@@ -132,10 +132,14 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 def get_rank_serpapi(keyword,device,domain):
+    try:
+        obj_key = API_key.objects.get(Order=1)
+    except:
+        obj_key = API_key.objects.create(Order=1)
     params = {
         "q": keyword,
         "num": 100,
-        "api_key": env('SERPAPI_KEY'),
+        "api_key": obj_key.Key,
         "engine": "google",
         "hl": "vi",
         "gl" : "vn",
@@ -218,6 +222,11 @@ def home_client(request):
         context['lc'] = lc
         context['domain'] = settings.DOMAIN
         context['message'] = f"Hello, I saw profile on https://{settings.DOMAIN}"
+        try:
+            context['obj_key'] = API_key.objects.get(Order=1)
+        except:
+            context['obj_key'] = API_key.objects.create(Order=1)
+        print('key:',context['obj_key'].Key)
         # context['list_Product'] = Product.objects.all()
         # print('context:',context)
         # p = request.GET.get('p','1')

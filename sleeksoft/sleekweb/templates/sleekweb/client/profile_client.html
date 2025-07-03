@@ -21,8 +21,13 @@
                 <span class="font-bold">Số tiền hiện có :</span>
                 <span class="format_number">{{request.user.Money|default:'0'}} đ</span>
             </div>
+            <div class="flex items-center justify-between w-full gap-2">
+                <span class="font-bold whitespace-nowrap">API key (serpapi.com) :</span>
+                <span class="overflow-x-auto bg-stone-300 py-1 px-2 w-full text-right">{{obj_key.Key|default:''}}</span>
+            </div>
             <div class="flex items-center justify-center gap-2 mt-2">
                 <a class="open_form_change_password font-bold cursor-pointer flex items-center justify-center gap-1 bg-stone-950 text-stone-50 rounded-lg py-2 w-full" data-username="{{request.user.username}}">Đổi mật khẩu</a>
+                <a class="open_form_change_key font-bold cursor-pointer flex items-center justify-center gap-1 bg-stone-950 text-stone-50 rounded-lg py-2 w-full" data-username="{{request.user.username}}">Đổi key</a>
                 <a href="{% url 'logout_client' %}" class="font-bold cursor-pointer flex items-center justify-center gap-1 bg-stone-950 text-stone-50 rounded-lg py-2 w-full">Đăng xuất</a>
             </div>
             <div class="flex items-center justify-between w-full mt-2">
@@ -46,7 +51,21 @@
             <span class="close_form_change_password bg-stone-600 rounded-lg font-bold text-stone-50 px-3 p-2 cursor-pointer">Huỷ</span>
         </div>
     </form>
-    {% if messages %}
+</div>
+<div class="form_change_key fixed inset-0 flex justify-center items-center bg-stone-950 bg-opacity-30 px-[15px] lg:px-[0px]" style="display: none;">
+    <form action="{% url 'change_key_client' %}" method="post" class=" flex flex-col gap-3 items-center justify-center bg-stone-50 rounded-lg text-stone-950 w-[500px] p-[20px]">
+        <span class="labe_user font-bold">
+            Đổi key (serpapi.com)
+        </span>
+        {% csrf_token %}
+        <input placeholder="Nhập key mới" name="new_key" class="rounded-lg w-[300px] text-center" />
+        <div class="flex items-center gap-2">
+            <button class="bg-stone-950 rounded-lg font-bold text-stone-50 px-3 p-2">Đổi key</button>
+            <span class="close_form_change_key bg-stone-600 rounded-lg font-bold text-stone-50 px-3 p-2 cursor-pointer">Huỷ</span>
+        </div>
+    </form>
+</div>
+{% if messages %}
     <script>
         window.onload = function () {
             {% for message in messages %}
@@ -60,8 +79,7 @@
             {% endfor %}
         }
     </script>
-    {% endif %}
-</div>
+{% endif %}
 <script>
   $(document).ready(function () {
     // Mở form
@@ -78,6 +96,21 @@
     $('.close_form_change_password').on('click', function (e) {
       e.preventDefault(); // tránh việc submit nếu là <button> trong form
       $('.form_change_password').fadeOut();
+    });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    $('.open_form_change_key').on('click', function () {
+
+      // Gán nội dung vào .labe_user
+      $('.form_change_key').fadeIn();
+    });
+
+    // Đóng form
+    $('.close_form_change_key').on('click', function (e) {
+      e.preventDefault(); // tránh việc submit nếu là <button> trong form
+      $('.form_change_key').fadeOut();
     });
   });
 </script>
