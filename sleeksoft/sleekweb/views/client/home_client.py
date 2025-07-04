@@ -323,3 +323,56 @@ def home_client(request):
         request.session['Domain'] = Domain
         request.session['rank_summary_list'] = rank_summary_list(data_check_rank_keyword)
         return redirect('home_client')
+    
+from openpyxl import Workbook
+from openpyxl.styles import Font
+from datetime import datetime
+
+from django.http import HttpResponse
+from openpyxl import Workbook
+from openpyxl.styles import Font
+from datetime import datetime
+from io import BytesIO
+
+def export_excel(request):
+    if request.method == 'GET':
+        data_check_rank_keyword = request.session.pop('data_check_rank_keyword', None)
+        Device = request.session.pop('Device', None)
+        Domain = request.session.pop('Domain', None)
+
+        now = datetime.now()
+        thoi_gian_text = now.strftime("%d-%m-%Y %H:%M:%S")
+        ten_file = now.strftime("sergoogle_%d_%m_%Y.xlsx")
+
+        wb = Workbook()
+        ws = wb.active
+
+        # Dòng 1: Tiêu đề chính
+        ws.merge_cells("A1:B1")
+        ws["A1"] = f"Danh sách xếp hạng từ khoá thuộc tên miền '{Domain}', thiết bị '{Device}', thời gian ({thoi_gian_text})"
+        ws["A1"].font = Font(bold=True, size=14)
+
+        # Dòng 2: Tiêu đề cột
+        ws["A2"] = "Từ khóa"
+        ws["B2"] = "Xếp hạng"
+        ws["A2"].font = Font(bold=True)
+        ws["B2"].font = Font(bold=True)
+
+        # Ghi dữ liệu từ dòng 3
+        for idx, item in enumerate(data_check_rank_keyword, start=3):
+            ws[f"A{idx}"] = item['keyword']
+            ws[f"B{idx}"] = item['rank']
+
+        # Tạo file Excel trong bộ nhớ RAM
+        output = BytesIO()
+        wb.save(output)
+        output.seek(0)
+
+        # Trả file về trình duyệt
+        response = HttpResponse(
+            output,
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response['Content-Disposition'] = f'attachment; filename="{ten_file}"'
+        return response
+

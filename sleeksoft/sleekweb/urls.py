@@ -68,6 +68,9 @@ urlpatterns = [
 
     # path('account/login', login_client,name='login_client'),
     # path('admin/account/login', login_admin,name='login_admin'),
+
+    path("export-excel/",export_excel, name="export_excel"),
+
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps_dict}, name='sitemap'),
 
     path('set-language/<str:lang_code>/', set_language, name='set_language'),
