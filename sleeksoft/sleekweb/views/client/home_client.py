@@ -181,26 +181,29 @@ def rank_summary_list(data_check_rank_keyword):
     }
 
     for item in data_check_rank_keyword:
-        rank = item["rank"]
-        if rank is None:
+        try:
+            rank = int(item["rank"])
+            print('rank:',rank)
+            if rank is None:
+                result["Out of Top 100"] += 1
+            elif rank <= 3:
+                result["Top 3"] += 1
+                result["Top 10"] += 1
+                result["Top 30"] += 1
+                result["Top 100"] += 1
+            elif rank <= 10:
+                result["Top 10"] += 1
+                result["Top 30"] += 1
+                result["Top 100"] += 1
+            elif rank <= 30:
+                result["Top 30"] += 1
+                result["Top 100"] += 1
+            elif rank <= 100:
+                result["Top 100"] += 1
+            else:
+                result["Out of Top 100"] += 1
+        except:
             result["Out of Top 100"] += 1
-        elif rank <= 3:
-            result["Top 3"] += 1
-            result["Top 10"] += 1
-            result["Top 30"] += 1
-            result["Top 100"] += 1
-        elif rank <= 10:
-            result["Top 10"] += 1
-            result["Top 30"] += 1
-            result["Top 100"] += 1
-        elif rank <= 30:
-            result["Top 30"] += 1
-            result["Top 100"] += 1
-        elif rank <= 100:
-            result["Top 100"] += 1
-        else:
-            result["Out of Top 100"] += 1
-
     # Chuyển thành list gồm 5 dict như yêu cầu
     summary_list = [
         {"name": "Top 3", "value": result["Top 3"]},
