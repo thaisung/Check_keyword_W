@@ -76,7 +76,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'sleekweb.middleware.BlockAfterDateMiddleware',
+    # 'sleekweb.middleware.BlockAfterDateMiddleware',
     'sleekweb.middleware.Redirect404ToHomeMiddleware',
 ]
 
