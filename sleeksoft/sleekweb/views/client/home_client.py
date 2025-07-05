@@ -158,7 +158,6 @@ def get_rank_serpapi(keyword,device,domain):
         if domain in link:
             return idx
 
-    return 'Không xác định'
 
 def check_rank_keyword(non_empty_lines,device,domain):
     data_check_rank_keyword = []
