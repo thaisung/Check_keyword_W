@@ -246,9 +246,9 @@ def home_client(request):
             context['Keyword_month'] = context['Keyword_day']*30
         except:
             pass
-        context['data_check_rank_keyword'] = request.session.pop('data_check_rank_keyword', None)
-        context['Device'] = request.session.pop('Device', None)
-        context['Domain'] = request.session.pop('Domain', None)
+        context['data_check_rank_keyword'] = request.session.get('data_check_rank_keyword', [])
+        context['Device'] = request.session.get('Device', None)
+        context['Domain'] = request.session.get('Domain', None)
         context['rank_summary_list'] = request.session.pop('rank_summary_list',
                                                            [
                 {"name": "Top 3", "value": 0},
@@ -333,12 +333,13 @@ from openpyxl import Workbook
 from openpyxl.styles import Font
 from datetime import datetime
 from io import BytesIO
+from openpyxl.styles import Alignment
 
 def export_excel(request):
     if request.method == 'GET':
-        data_check_rank_keyword = request.session.pop('data_check_rank_keyword', None)
-        Device = request.session.pop('Device', None)
-        Domain = request.session.pop('Domain', None)
+        data_check_rank_keyword = request.session.get('data_check_rank_keyword', [])
+        Device = request.session.get('Device', None)
+        Domain = request.session.get('Domain', None)
 
         now = datetime.now()
         thoi_gian_text = now.strftime("%d-%m-%Y %H:%M:%S")
@@ -347,32 +348,39 @@ def export_excel(request):
         wb = Workbook()
         ws = wb.active
 
-        # Dòng 1: Tiêu đề chính
+        ws.column_dimensions["A"].width = 70
+        ws.column_dimensions["B"].width = 70
+
+        # Dòng 1: Tiêu đề chính (merge + căn giữa)
         ws.merge_cells("A1:B1")
         ws["A1"] = f"Danh sách xếp hạng từ khoá thuộc tên miền '{Domain}', thiết bị '{Device}', thời gian ({thoi_gian_text})"
         ws["A1"].font = Font(bold=True, size=14)
+        ws["A1"].alignment = Alignment(horizontal="center")
 
         # Dòng 2: Tiêu đề cột
         ws["A2"] = "Từ khóa"
         ws["B2"] = "Xếp hạng"
         ws["A2"].font = Font(bold=True)
         ws["B2"].font = Font(bold=True)
+        ws["A2"].alignment = Alignment(horizontal="center")
+        ws["B2"].alignment = Alignment(horizontal="center")
 
-        # Ghi dữ liệu từ dòng 3
+        # Dữ liệu từ dòng 3, căn giữa hết
         for idx, item in enumerate(data_check_rank_keyword, start=3):
             ws[f"A{idx}"] = item['keyword']
             ws[f"B{idx}"] = item['rank']
+            ws[f"A{idx}"].alignment = Alignment(horizontal="center")
+            ws[f"B{idx}"].alignment = Alignment(horizontal="center")
 
-        # Tạo file Excel trong bộ nhớ RAM
         output = BytesIO()
         wb.save(output)
         output.seek(0)
 
-        # Trả file về trình duyệt
         response = HttpResponse(
             output,
             content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
         response['Content-Disposition'] = f'attachment; filename="{ten_file}"'
         return response
+
 

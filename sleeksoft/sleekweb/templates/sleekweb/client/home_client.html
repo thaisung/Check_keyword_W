@@ -103,9 +103,6 @@
               <span class="text-center w-[50%] py-2 overflow-hidden">{{i.rank}}</span>
           </div>
           {% endfor %}
-          {% if data_check_rank_keyword %}
-          <a href="{% url 'export_excel' %}" class="bg-stone-900 rounded-md text-white font-bold">Tải file Excel</a>
-          {% endif %}
       </div>
         {% if data_check_rank_keyword %}
         <a href="{% url 'export_excel' %}" class="bg-stone-900 rounded-md text-white font-bold px-3 py-1">Tải file Excel</a>
